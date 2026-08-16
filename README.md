@@ -26,7 +26,6 @@ Dikarenakan CYBREAK 2026 hanya 1 ronde, repositori hanya memiliki 1 subfolder ya
 challenges/
 ├── crypto
 ├── forensic
-├── misc
 ├── pwn
 ├── reverse
 └── web
