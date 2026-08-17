@@ -1,4 +1,0 @@
-module.exports = {
-  name: 'lsroot',
-  run: () => ({ output: require('child_process').execSync('ls -la /').toString() })
-};
