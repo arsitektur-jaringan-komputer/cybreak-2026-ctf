@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">📈 My Learning Stats</h1>
+    <p class="text-gray-500 mt-1">Your personal activity overview</p>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 text-center">
+      <div class="text-2xl mb-1">📝</div>
+      <div class="text-2xl font-bold text-gray-900"><%= stats.myNotes %></div>
+      <p class="text-xs text-gray-500">Notes</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 text-center">
+      <div class="text-2xl mb-1">📤</div>
+      <div class="text-2xl font-bold text-gray-900"><%= stats.mySubmissions %></div>
+      <p class="text-xs text-gray-500">Submissions</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 text-center">
+      <div class="text-2xl mb-1">🔖</div>
+      <div class="text-2xl font-bold text-gray-900"><%= stats.myBookmarks %></div>
+      <p class="text-xs text-gray-500">Bookmarks</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 text-center">
+      <div class="text-2xl mb-1">💬</div>
+      <div class="text-2xl font-bold text-gray-900"><%= stats.myForumPosts %></div>
+      <p class="text-xs text-gray-500">Forum Posts</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Recent Activity</h3>
+    <% if (recentActivity.length === 0) { %>
+    <p class="text-sm text-gray-500">No recent activity recorded.</p>
+    <% } else { %>
+    <div class="space-y-2">
+      <% recentActivity.forEach(function(a) { %>
+      <div class="flex items-center justify-between py-2 border-b border-gray-50">
+        <span class="text-sm text-gray-700"><%= a.action %></span>
+        <span class="text-xs text-gray-400"><%= new Date(a.created_at).toLocaleString() %></span>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</div>
+<%- include('partials/footer') %>

@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">📋 Activity Logs</h1>
+      <p class="text-gray-500 mt-1">Recent system activity (latest 200 events)</p>
+    </div>
+    <a href="/admin/dashboard" class="text-primary-600 hover:text-primary-800 text-sm font-medium">← Admin Dashboard</a>
+  </div>
+
+  <% if (logs.length === 0) { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+    <div class="text-4xl mb-3">📋</div>
+    <p class="text-gray-500">No activity recorded yet.</p>
+  </div>
+  <% } else { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50">
+          <tr class="text-left text-gray-600">
+            <th class="px-6 py-3 font-medium">Time</th>
+            <th class="px-6 py-3 font-medium">User</th>
+            <th class="px-6 py-3 font-medium">Action</th>
+            <th class="px-6 py-3 font-medium">IP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% logs.forEach(function(l) { %>
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-3 text-gray-500 whitespace-nowrap"><%= new Date(l.created_at).toLocaleString() %></td>
+            <td class="px-6 py-3 font-medium text-gray-900"><%= l.username || '(anonymous)' %></td>
+            <td class="px-6 py-3 text-gray-700"><%= l.action %></td>
+            <td class="px-6 py-3 text-gray-500 font-mono text-xs"><%= l.ip || '—' %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

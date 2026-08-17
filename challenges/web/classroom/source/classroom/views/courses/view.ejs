@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<div class="max-w-3xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <a href="/courses" class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center gap-1">
+      ← Back to Courses
+    </a>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="flex items-start justify-between mb-2">
+      <h1 class="text-2xl font-bold text-gray-900"><%= course.name %></h1>
+      <div class="flex items-center gap-2 shrink-0 ml-3">
+        <form action="/classroom/bookmarks/toggle/<%= course.id %>" method="POST">
+          <button type="submit" class="text-sm bg-amber-50 text-amber-700 border border-amber-300 px-4 py-2 rounded-lg hover:bg-amber-100 transition-colors font-medium">
+            🔖 Bookmark
+          </button>
+        </form>
+        <a href="/classroom/forum/<%= course.id %>" class="text-sm bg-primary-50 text-primary-700 border border-primary-200 px-4 py-2 rounded-lg hover:bg-primary-100 transition-colors font-medium">
+          💬 Forum
+        </a>
+      </div>
+    </div>
+    <div class="flex items-center text-sm text-gray-500 mb-6 pb-4 border-b border-gray-100">
+      <span>Created: <%= new Date(course.created_at).toLocaleDateString() %></span>
+    </div>
+    <div class="prose max-w-none">
+      <pre class="text-gray-700 whitespace-pre-wrap font-sans text-sm leading-relaxed"><%= course.description || 'No description provided.' %></pre>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>

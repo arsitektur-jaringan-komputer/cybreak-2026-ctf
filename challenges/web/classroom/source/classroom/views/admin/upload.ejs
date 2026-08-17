@@ -1,0 +1,69 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Image Upload</h1>
+      <p class="text-gray-500 mt-1">Upload images for the system (profile pictures, banners, etc.)</p>
+    </div>
+    <a href="/admin/dashboard" class="text-primary-600 hover:text-primary-800 text-sm font-medium">← Admin Dashboard</a>
+  </div>
+
+  <!-- Upload Form -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Upload New Image</h3>
+    <form action="/admin/upload" method="POST" enctype="multipart/form-data" class="space-y-4">
+      <div>
+        <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Select Image</label>
+        <input type="file" id="image" name="image" accept=".jpg,.jpeg,.png,.gif,.bmp,.svg" required
+          class="w-full text-sm text-gray-600 file:mr-4 file:py-2.5 file:px-6 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-50 file:text-primary-700 file:hover:bg-primary-100 file:cursor-pointer file:transition-colors">
+        <p class="text-xs text-gray-400 mt-2">Accepted: JPG, PNG, GIF, BMP, SVG (max 1MB)</p>
+      </div>
+      <button type="submit"
+        class="bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm">
+        Upload
+      </button>
+    </form>
+  </div>
+
+  <!-- Upload Result -->
+  <% if (typeof uploadedFile !== 'undefined' && uploadedFile) { %>
+  <div class="bg-green-50 border border-green-300 rounded-xl p-6">
+    <h3 class="font-semibold text-green-900 mb-3">✅ File Uploaded Successfully</h3>
+    <div class="bg-white rounded-lg p-4 border border-green-200">
+      <div class="grid grid-cols-2 gap-3 text-sm">
+        <div>
+          <span class="text-gray-500">Filename:</span>
+          <span class="font-mono text-gray-900 ml-2"><%= uploadedFile.name %></span>
+        </div>
+        <div>
+          <span class="text-gray-500">Size:</span>
+          <span class="text-gray-900 ml-2"><%= (uploadedFile.size / 1024).toFixed(1) %> KB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- Previously Uploaded Files -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Uploaded Files</h3>
+    <% if (uploadedFiles.length === 0) { %>
+    <p class="text-sm text-gray-500">No files uploaded yet.</p>
+    <% } else { %>
+    <div class="space-y-2">
+      <% uploadedFiles.forEach(function(file) { %>
+      <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+        <div class="flex items-center gap-3">
+          <span class="text-lg">🖼️</span>
+          <div>
+            <p class="text-sm font-mono text-gray-900"><%= file.name %></p>
+            <p class="text-xs text-gray-500"><%= (file.size / 1024).toFixed(1) %> KB</p>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</div>
+<%- include('partials/footer') %>

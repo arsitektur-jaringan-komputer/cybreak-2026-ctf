@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  classroom:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: classroom-ctf
+    hostname: classroom
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - ./uploads:/app/public/uploads
+
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+
+    networks:
+      - ctf-net
+
+networks:
+  ctf-net:
+    driver: bridge
+    name: ctf-net

@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Public Notes</h1>
+    <p class="text-gray-500 mt-1">Browse notes shared by all users</p>
+  </div>
+
+  <% if (notes.length === 0) { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+    <div class="text-4xl mb-3">🌐</div>
+    <p class="text-gray-500">No public notes yet.</p>
+  </div>
+  <% } else { %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% notes.forEach(function(note) { %>
+    <a href="/notes/<%= note.id %>" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all block">
+      <div class="flex items-start justify-between mb-2">
+        <h3 class="font-semibold text-gray-900"><%= note.title %></h3>
+      </div>
+      <p class="text-sm text-gray-500 line-clamp-2 mb-3"><%= (note.content || '').substring(0, 120) %></p>
+      <div class="flex items-center justify-between text-xs text-gray-400">
+        <span><%= new Date(note.created_at).toLocaleDateString() %></span>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

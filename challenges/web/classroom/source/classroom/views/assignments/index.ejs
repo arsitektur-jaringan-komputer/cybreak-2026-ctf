@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">📝 Assignments</h1>
+      <p class="text-gray-500 mt-1">Course assignments and submissions</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="/assignments/gradebook" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">
+        Gradebook
+      </a>
+      <% if (user.role === 'lecturer') { %>
+      <a href="/assignments/create/form" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium">
+        + Create Assignment
+      </a>
+      <% } %>
+    </div>
+  </div>
+
+  <% if (assignments.length === 0) { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+    <div class="text-4xl mb-3">📝</div>
+    <p class="text-gray-500">No assignments yet.</p>
+  </div>
+  <% } else { %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% assignments.forEach(function(a) { %>
+    <a href="/assignments/<%= a.id %>" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all block">
+      <h3 class="font-semibold text-gray-900 mb-1"><%= a.title %></h3>
+      <p class="text-sm text-gray-500 mb-3"><%= a.course_name %></p>
+      <p class="text-sm text-gray-600 line-clamp-2 mb-3"><%= (a.description || 'No description').substring(0, 100) %></p>
+      <div class="flex items-center justify-between text-xs text-gray-400">
+        <% if (a.due_date) { %>
+        <span class="<%= new Date(a.due_date) < new Date() ? 'text-red-500 font-medium' : '' %>">Due: <%= new Date(a.due_date).toLocaleDateString() %></span>
+        <% } %>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

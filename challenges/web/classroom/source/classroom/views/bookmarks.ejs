@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">🔖 My Bookmarks</h1>
+    <p class="text-gray-500 mt-1">Courses you saved for quick access</p>
+  </div>
+
+  <% if (bookmarks.length === 0) { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+    <div class="text-4xl mb-3">🔖</div>
+    <p class="text-gray-500 mb-4">No bookmarks yet.</p>
+    <a href="/courses" class="inline-block bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm">
+      Browse Courses
+    </a>
+  </div>
+  <% } else { %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% bookmarks.forEach(function(b) { %>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all">
+      <div class="flex items-start justify-between mb-2">
+        <h3 class="font-semibold text-gray-900">
+          <a href="/courses/<%= b.course_id %>" class="hover:text-primary-600 transition-colors"><%= b.course_name %></a>
+        </h3>
+        <form action="/classroom/bookmarks/toggle/<%= b.course_id %>" method="POST">
+          <button type="submit" class="text-lg text-amber-500 hover:text-amber-600" title="Remove bookmark">★</button>
+        </form>
+      </div>
+      <p class="text-sm text-gray-500 line-clamp-2 mb-3"><%= (b.description || 'No description').substring(0, 100) %></p>
+      <p class="text-xs text-gray-400">Lecturer: <%= b.lecturer_name %></p>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

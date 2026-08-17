@@ -1,0 +1,82 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+      <p class="text-gray-500 mt-1">System overview and management</p>
+    </div>
+    <span class="text-xs px-3 py-1 bg-red-100 text-red-700 rounded-full font-medium">Administrator Access</span>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div class="text-3xl mb-2">👥</div>
+      <div class="text-3xl font-bold text-gray-900"><%= stats.totalUsers %></div>
+      <p class="text-sm text-gray-500">Total Users</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div class="text-3xl mb-2">📝</div>
+      <div class="text-3xl font-bold text-gray-900"><%= stats.totalNotes %></div>
+      <p class="text-sm text-gray-500">Total Notes</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div class="text-3xl mb-2">📖</div>
+      <div class="text-3xl font-bold text-gray-900"><%= stats.totalCourses %></div>
+      <p class="text-sm text-gray-500">Total Courses</p>
+    </div>
+  </div>
+
+  <!-- Admin Quick Links -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <a href="/admin/users" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-amber-300 hover:shadow-md transition-all text-center">
+      <div class="text-2xl mb-2">👥</div>
+      <p class="text-sm font-medium text-gray-900">Manage Users</p>
+    </a>
+    <a href="/admin/modules" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-amber-300 hover:shadow-md transition-all text-center">
+      <div class="text-2xl mb-2">🔧</div>
+      <p class="text-sm font-medium text-gray-900">System Modules</p>
+    </a>
+    <a href="/admin/upload" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-amber-300 hover:shadow-md transition-all text-center">
+      <div class="text-2xl mb-2">📤</div>
+      <p class="text-sm font-medium text-gray-900">Upload Images</p>
+    </a>
+    <a href="/admin/config" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-amber-300 hover:shadow-md transition-all text-center">
+      <div class="text-2xl mb-2">⚙️</div>
+      <p class="text-sm font-medium text-gray-900">Config Files</p>
+    </a>
+  </div>
+
+  <!-- Recent Users -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Recent Users</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left text-gray-500 border-b border-gray-100">
+            <th class="pb-3 font-medium">ID</th>
+            <th class="pb-3 font-medium">Username</th>
+            <th class="pb-3 font-medium">Role</th>
+            <th class="pb-3 font-medium">Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentUsers.forEach(function(u) { %>
+          <tr class="border-b border-gray-50">
+            <td class="py-2 text-gray-700"><%= u.id %></td>
+            <td class="py-2 font-medium text-gray-900"><%= u.username %></td>
+            <td class="py-2">
+              <span class="text-xs px-2 py-0.5 rounded-full font-medium
+                <%= u.role === 'admin' ? 'bg-red-100 text-red-700' : (u.role === 'lecturer' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700') %>">
+                <%= u.role %>
+              </span>
+            </td>
+            <td class="py-2 text-gray-500"><%= new Date(u.created_at).toLocaleDateString() %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>

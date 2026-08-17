@@ -1,0 +1,61 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">My Notes</h1>
+      <p class="text-gray-500 mt-1">Manage your personal notes</p>
+    </div>
+  </div>
+
+  <!-- Create Note Form -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Create New Note</h3>
+    <form action="/notes" method="POST" class="space-y-4">
+      <div>
+        <input type="text" name="title" placeholder="Note title..." required
+          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+      </div>
+      <div>
+        <textarea name="content" rows="3" placeholder="Note content..."
+          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-y"></textarea>
+      </div>
+      <div class="flex items-center justify-between">
+        <label class="flex items-center text-sm text-gray-600">
+          <input type="checkbox" name="is_private" value="1" class="mr-2 rounded border-gray-300 text-primary-600 focus:ring-primary-500">
+          Make this note private
+        </label>
+        <button type="submit" class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm">
+          Create Note
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Notes List -->
+  <% if (notes.length === 0) { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+    <div class="text-4xl mb-3">📝</div>
+    <p class="text-gray-500">No notes yet. Create your first note above!</p>
+  </div>
+  <% } else { %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% notes.forEach(function(note) { %>
+    <a href="/notes/<%= note.id %>" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all block">
+      <div class="flex items-start justify-between mb-2">
+        <h3 class="font-semibold text-gray-900 line-clamp-1"><%= note.title %></h3>
+        <% if (note.is_private) { %>
+        <span class="ml-2 text-xs px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full font-medium shrink-0">Private</span>
+        <% } else { %>
+        <span class="ml-2 text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-medium shrink-0">Public</span>
+        <% } %>
+      </div>
+      <p class="text-sm text-gray-500 line-clamp-2 mb-3"><%= (note.content || '').substring(0, 120) %></p>
+      <div class="flex items-center justify-between text-xs text-gray-400">
+        <span><%= new Date(note.created_at).toLocaleDateString() %></span>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

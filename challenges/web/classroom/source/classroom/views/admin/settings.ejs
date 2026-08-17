@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<div class="max-w-2xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">⚙️ System Settings</h1>
+      <p class="text-gray-500 mt-1">Configure system-wide options</p>
+    </div>
+    <a href="/admin/dashboard" class="text-primary-600 hover:text-primary-800 text-sm font-medium">← Admin Dashboard</a>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="flex items-start justify-between mb-4">
+      <div>
+        <h3 class="font-semibold text-gray-900">Maintenance Mode</h3>
+        <p class="text-sm text-gray-500 mt-1">
+          When enabled, only administrators can access the system. All other users
+          (and the API) will see a maintenance message.
+        </p>
+      </div>
+      <span class="px-2 py-0.5 text-xs rounded-full font-medium <%= maintenanceMode ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' %>">
+        <%= maintenanceMode ? 'ENABLED' : 'DISABLED' %>
+      </span>
+    </div>
+    <form action="/admin/settings/maintenance" method="POST" class="space-y-4">
+      <input type="hidden" name="enabled" value="<%= maintenanceMode ? '0' : '1' %>">
+      <button type="submit"
+        class="<%= maintenanceMode ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700' %> text-white px-6 py-2.5 rounded-lg transition-colors font-medium text-sm">
+        <%= maintenanceMode ? 'Disable Maintenance Mode' : 'Enable Maintenance Mode' %>
+      </button>
+    </form>
+  </div>
+</div>
+<%- include('partials/footer') %>

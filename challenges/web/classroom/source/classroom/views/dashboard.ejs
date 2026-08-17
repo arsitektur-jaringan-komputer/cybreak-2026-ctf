@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <!-- Welcome Card -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Welcome, <%= user.username %>!</h1>
+        <p class="text-gray-500 mt-1">You are logged in as <span class="font-medium"><%= user.role %></span></p>
+      </div>
+      <div class="text-4xl">
+        <%= user.role === 'admin' ? '🛡️' : (user.role === 'lecturer' ? '👨‍🏫' : '🎓') %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <a href="/notes" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">📝</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">My Notes</h3>
+      <p class="text-sm text-gray-500 mt-1">View and manage your personal notes</p>
+    </a>
+
+    <a href="/notes/public" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">🌐</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Public Notes</h3>
+      <p class="text-sm text-gray-500 mt-1">Browse notes shared by the community</p>
+    </a>
+
+    <a href="/courses" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">📖</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Courses</h3>
+      <p class="text-sm text-gray-500 mt-1">Browse available courses</p>
+    </a>
+
+    <a href="/announcements" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">📢</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Announcements</h3>
+      <p class="text-sm text-gray-500 mt-1">Official news from staff</p>
+    </a>
+
+    <a href="/assignments" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">📝</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Assignments</h3>
+      <p class="text-sm text-gray-500 mt-1">Submit work and view grades</p>
+    </a>
+
+    <a href="/assignments/gradebook" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">📊</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Gradebook</h3>
+      <p class="text-sm text-gray-500 mt-1">Track your grades</p>
+    </a>
+
+    <a href="/classroom/schedule" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">🗓️</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Weekly Schedule</h3>
+      <p class="text-sm text-gray-500 mt-1">Class timetable</p>
+    </a>
+
+    <a href="/classroom/bookmarks" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">🔖</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Bookmarks</h3>
+      <p class="text-sm text-gray-500 mt-1">Saved courses</p>
+    </a>
+
+    <a href="/classroom/stats" class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-primary-300 hover:shadow-md transition-all group">
+      <div class="text-3xl mb-2">📈</div>
+      <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">My Stats</h3>
+      <p class="text-sm text-gray-500 mt-1">Personal activity overview</p>
+    </a>
+  </div>
+</div>
+<%- include('partials/footer') %>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classroom Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+              400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+              800: '#1e40af', 900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="h-full">
+  <nav class="bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center flex-shrink-0 whitespace-nowrap">
+          <a href="/dashboard" class="text-lg sm:text-xl font-bold text-primary-600">📚 Classroom</a>
+        </div>
+
+        <% if (user) { %>
+        <!-- Desktop navigation (xl and up) -->
+        <div class="hidden xl:flex xl:items-center xl:space-x-2 whitespace-nowrap">
+          <a href="/dashboard" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Dashboard
+          </a>
+          <a href="/notes" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            My Notes
+          </a>
+          <a href="/notes/public" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Public Notes
+          </a>
+          <a href="/courses" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Courses
+          </a>
+          <a href="/announcements" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Announcements
+          </a>
+          <a href="/assignments" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Assignments
+          </a>
+          <a href="/classroom/schedule" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Schedule
+          </a>
+          <% if (user.role === 'lecturer' || user.role === 'admin') { %>
+          <a href="/courses/import/form" class="inline-flex items-center px-2 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-md transition-colors">
+            Import XML
+          </a>
+          <% } %>
+          <% if (user.role === 'admin') { %>
+          <a href="/admin/dashboard" class="inline-flex items-center px-2 py-2 text-sm font-medium text-amber-700 hover:text-amber-800 hover:bg-amber-50 rounded-md transition-colors border border-amber-300">
+            ⚙ Admin
+          </a>
+          <% } %>
+        </div>
+        <% } %>
+
+        <div class="flex items-center space-x-3 flex-shrink-0 whitespace-nowrap">
+          <% if (user) { %>
+            <a href="/auth/profile" class="text-sm text-gray-600 hover:text-primary-600 transition-colors">Profile</a>
+            <a href="/auth/logout" class="text-sm text-red-600 hover:text-red-800 transition-colors font-medium">Logout</a>
+            <button type="button" class="xl:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-primary-600 hover:bg-gray-100 transition-colors"
+              onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Toggle navigation">
+              <span class="text-xl leading-none">☰</span>
+            </button>
+          <% } else { %>
+            <a href="/auth/login" class="text-sm text-primary-600 hover:text-primary-800 font-medium">Login</a>
+            <a href="/auth/register" class="text-sm bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors font-medium">Register</a>
+          <% } %>
+        </div>
+      </div>
+
+      <% if (user) { %>
+      <!-- Mobile navigation (below xl, toggled by the hamburger button) -->
+      <div id="mobile-menu" class="hidden xl:hidden border-t border-gray-100 pb-3">
+        <div class="pt-2 space-y-1">
+          <a href="/dashboard" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Dashboard</a>
+          <a href="/notes" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">My Notes</a>
+          <a href="/notes/public" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Public Notes</a>
+          <a href="/courses" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Courses</a>
+          <a href="/announcements" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Announcements</a>
+          <a href="/assignments" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Assignments</a>
+          <a href="/classroom/schedule" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Schedule</a>
+          <% if (user.role === 'lecturer' || user.role === 'admin') { %>
+          <a href="/courses/import/form" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50">Import XML</a>
+          <% } %>
+          <% if (user.role === 'admin') { %>
+          <a href="/admin/dashboard" class="block px-3 py-2 rounded-md text-sm font-medium text-amber-700 hover:text-amber-800 hover:bg-amber-50">⚙ Admin</a>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20">
+    <!-- Flash messages -->
+    <% if (typeof error !== 'undefined' && error) { %>
+    <div class="mb-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-md">
+      <div class="flex">
+        <div class="flex-shrink-0 text-red-400 text-lg">⚠</div>
+        <div class="ml-3">
+          <p class="text-sm text-red-700"><%= error %></p>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <% if (typeof success !== 'undefined' && success) { %>
+    <div class="mb-6 bg-green-50 border-l-4 border-green-400 p-4 rounded-r-md">
+      <div class="flex">
+        <div class="flex-shrink-0 text-green-400 text-lg">✓</div>
+        <div class="ml-3">
+          <p class="text-sm text-green-700"><%= success %></p>
+        </div>
+      </div>
+    </div>
+    <% } %>

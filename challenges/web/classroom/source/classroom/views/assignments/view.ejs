@@ -1,0 +1,77 @@
+<%- include('partials/header') %>
+<div class="max-w-3xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <a href="/assignments" class="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center gap-1">
+      ← Back to Assignments
+    </a>
+    <a href="/assignments/gradebook" class="text-sm text-gray-600 hover:text-primary-600">Gradebook →</a>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-1"><%= assignment.title %></h1>
+    <p class="text-sm text-gray-500 mb-4">
+      Course: <strong><%= assignment.course_name %></strong>
+      <% if (assignment.due_date) { %>
+      • Due: <strong><%= new Date(assignment.due_date).toLocaleDateString() %></strong>
+      <% } %>
+    </p>
+    <pre class="text-gray-700 whitespace-pre-wrap font-sans text-sm bg-gray-50 rounded-lg p-4 border border-gray-200"><%= assignment.description || 'No description provided.' %></pre>
+  </div>
+
+  <% if (user.role === 'student') { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">My Submission</h3>
+    <% if (mySubmission) { %>
+    <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+      <p class="text-sm text-green-800 mb-1">Submitted at <%= new Date(mySubmission.submitted_at).toLocaleString() %></p>
+      <pre class="text-sm text-gray-700 whitespace-pre-wrap bg-white rounded p-3 border border-green-100"><%= mySubmission.content %></pre>
+      <% if (mySubmission.grade) { %>
+      <p class="text-sm font-medium text-green-800 mt-2">Grade: <%= mySubmission.grade %></p>
+      <% } else { %>
+      <p class="text-sm text-amber-600 mt-2">Not graded yet</p>
+      <% } %>
+    </div>
+    <% } %>
+    <form action="/assignments/<%= assignment.id %>/submit" method="POST" class="space-y-4">
+      <div>
+        <label for="content" class="block text-sm font-medium text-gray-700 mb-1"><%= mySubmission ? 'Resubmit (new submission)' : 'Your answer' %></label>
+        <textarea id="content" name="content" rows="5" required
+          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-y"
+          placeholder="Write your answer..."></textarea>
+      </div>
+      <button type="submit" class="bg-primary-600 text-white px-6 py-2.5 rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm">
+        Submit Assignment
+      </button>
+    </form>
+  </div>
+  <% } %>
+
+  <% if (isOwner || user.role === 'admin') { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Submissions (<%= allSubmissions.length %>)</h3>
+    <% if (allSubmissions.length === 0) { %>
+    <p class="text-sm text-gray-500">No submissions yet.</p>
+    <% } else { %>
+    <div class="space-y-4">
+      <% allSubmissions.forEach(function(s) { %>
+      <div class="border border-gray-200 rounded-lg p-4">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-sm font-medium text-gray-900"><%= s.student_name %></p>
+          <span class="text-xs text-gray-400"><%= new Date(s.submitted_at).toLocaleString() %></span>
+        </div>
+        <pre class="text-sm text-gray-700 whitespace-pre-wrap bg-gray-50 rounded p-3 mb-3"><%= s.content %></pre>
+        <form action="/assignments/submissions/<%= s.id %>/grade" method="POST" class="flex items-center gap-2">
+          <input type="text" name="grade" value="<%= s.grade || '' %>" placeholder="Grade (e.g., A / 92)"
+            class="flex-1 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none text-sm">
+          <button type="submit" class="bg-gray-800 text-white px-4 py-1.5 rounded-lg hover:bg-gray-900 transition-colors text-sm font-medium">
+            Save Grade
+          </button>
+        </form>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>

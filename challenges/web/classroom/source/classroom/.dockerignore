@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+*.md
+.DS_Store
+data
+uploads/*
+!uploads/.gitkeep
+.env.local
+# Never bake local runtime state into the image — the container must seed
+# fresh on first boot (random admin/lecturer usernames, new backup hash).
+classroom.db
+classroom.db-shm
+classroom.db-wal
+backup/*

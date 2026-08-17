@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+<div class="space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">📢 Announcements</h1>
+    <p class="text-gray-500 mt-1">Official news from lecturers and administrators</p>
+  </div>
+
+  <% if (user.role === 'lecturer' || user.role === 'admin') { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="font-semibold text-gray-900 mb-4">Post New Announcement</h3>
+    <form action="/announcements" method="POST" class="space-y-4">
+      <div>
+        <input type="text" name="title" placeholder="Announcement title..." required
+          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none">
+      </div>
+      <div>
+        <textarea name="content" rows="3" placeholder="Announcement content..." required
+          class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-y"></textarea>
+      </div>
+      <button type="submit" class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm">
+        Publish Announcement
+      </button>
+    </form>
+  </div>
+  <% } %>
+
+  <% if (announcements.length === 0) { %>
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+    <div class="text-4xl mb-3">📢</div>
+    <p class="text-gray-500">No announcements yet.</p>
+  </div>
+  <% } else { %>
+  <div class="space-y-4">
+    <% announcements.forEach(function(a) { %>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+      <div class="flex items-start justify-between mb-2">
+        <h3 class="font-semibold text-gray-900"><%= a.title %></h3>
+        <div class="flex items-center gap-3 shrink-0 ml-3">
+          <span class="text-xs text-gray-400"><%= new Date(a.created_at).toLocaleString() %></span>
+          <% if (user.role === 'admin') { %>
+          <form action="/announcements/<%= a.id %>/delete" method="POST" onsubmit="return confirm('Delete this announcement?');">
+            <button type="submit" class="text-xs text-red-500 hover:text-red-700 font-medium">Delete</button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <pre class="text-sm text-gray-700 whitespace-pre-wrap font-sans"><%= a.content %></pre>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div>
+<%- include('partials/footer') %>
