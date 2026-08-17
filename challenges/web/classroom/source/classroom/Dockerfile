@@ -19,8 +19,6 @@ RUN apt-get remove -y python3 make gcc g++ libxml2-dev && \
 
 COPY . .
 
-# The flag source must not ship inside the app directory (would be trivially
-# readable via RCE); remove it and keep only the root-only canonical copy below.
 RUN rm -f /app/flag.txt
 
 RUN mkdir -p /app/public/uploads /app/modules /app/backup
