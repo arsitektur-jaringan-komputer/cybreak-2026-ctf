@@ -1,0 +1,11 @@
+services:
+  viewer-chall:
+    build: .
+    restart: unless-stopped
+    environment:
+      - TERM=xterm
+    ulimits:
+      nproc: 65535
+      core: 0
+    ports:
+      - "51337:1337"
