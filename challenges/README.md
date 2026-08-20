@@ -10,7 +10,7 @@
 |               | lylera       | Easy       | Pwn      |
 | Kiwwwiiiiiiii | lylera       | Medium     | Pwn      |
 |               | mirai        | Hard       | Pwn      |
-|               | kokguebitici | Easy       | Forensic |
+|     Viewer    | kokguebitici | Easy       | Forensic |
 |               | UrSourceCode | Medium     | Forensic |
 |               | pujow        | Hard       | Forensic |
 |               | UrSourceCode | Easy       | Reverse  |
