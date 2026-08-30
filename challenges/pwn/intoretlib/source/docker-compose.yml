@@ -1,0 +1,16 @@
+services:
+  intoretlib:
+    build: .
+    container_name: intoretlib
+    ports:
+      - "8583:8583"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    pids_limit: 50
