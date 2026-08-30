@@ -10,8 +10,8 @@ easy
 
 ## Description
 
-gaboleh gitu gilak, laki harus macho.
+Lets play with int shall we?
 
 ## Flag
 
-CYB26{ret2lib_bu7_different}
+CYB26{ret2lib_bu7_different_but_st1ll_ret2l1b}
