@@ -23,7 +23,10 @@ The first seal is successfully created.
 The second casting fails and leaves behind a cracked seal.
 
 <p align="center">
-  <img src="https://tenor.com/tGSNO7Wp8Z1.gif" alt="Challenge GIF" width="500">
+  <img
+    src="https://media1.tenor.com/m/43OhyWnm9CcAAAAd/critical-failure-baldur%27s-gate-3.gif"
+    width="500"
+  />
 </p>
 
 ## Flag
