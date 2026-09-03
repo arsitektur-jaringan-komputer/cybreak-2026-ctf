@@ -1,0 +1,22 @@
+challenges:
+  - category: web
+    name: classroom
+    author: abdiery
+    description: |
+      A classroom is far more than just four walls and a set of desks. It is a
+      dynamic, living ecosystem where structured learning, spontaneous
+      curiosity, and social development converge.
+
+      The school principal or headmaster may give the task with the specific
+      file named `rockyou.txt` if needed.
+    tags:
+      - Medium
+    attachments:
+      pre_compressed:
+        - release/classroom_dist.zip
+    endpoints:
+      - type: http
+        endpoint: cybreak.miraii.dev
+        port: 3000
+    flags:
+      rctf: 'CYB26{t0d4y_cl4ss_1S_h0w_T0_Ch4in1n9}'

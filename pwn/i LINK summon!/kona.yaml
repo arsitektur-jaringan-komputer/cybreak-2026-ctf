@@ -1,0 +1,20 @@
+challenges:
+  - category: pwn
+    name: i LINK summon!
+    author: lylera_
+    description: |
+      I LINK SUMMON MONSTER, LET'S GO LINK 2 TRICKSTAR BLACK CATBAT!
+
+      https://tenor.com/view/trickstar-yugioh-yugioh-trickstar-yugioh-trickstar-black-catbat-yugioh-trickstar-sweet-devil-gif-24771894
+    tags:
+      - Medium
+    attachments:
+      files:
+        - release/chall
+      strip_components: 1
+    endpoints:
+      - type: nc
+        endpoint: cybreak.miraii.dev
+        port: 4282
+    flags:
+      rctf: 'CYB26{link3d_7his_link_that_LINKING}'

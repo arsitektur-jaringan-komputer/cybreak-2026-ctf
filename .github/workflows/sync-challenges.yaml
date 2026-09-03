@@ -1,0 +1,39 @@
+name: Sync challenges to rCTF
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
+      should_sync: ${{ steps.detect.outputs.should-sync }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: project-sekai-ctf/konata-deploy-action/detect@main
+        id: detect
+
+  sync:
+    needs: detect
+    if: needs.detect.outputs.should_sync == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        challenge: ${{ fromJson(needs.detect.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: project-sekai-ctf/konata-deploy-action/sync@main
+        with:
+          challenge-path: ${{ matrix.challenge }}
+        env:
+          RCTF_TOKEN: ${{ secrets.RCTF_TOKEN }}

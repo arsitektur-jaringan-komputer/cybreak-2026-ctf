@@ -1,0 +1,17 @@
+challenges:
+  - category: pwn
+    name: intoretlib
+    author: lylera_
+    description: |
+      Let's play with int, shall we?
+    tags:
+      - Easy
+    attachments:
+      pre_compressed:
+        - release/intoretlib.zip
+    endpoints:
+      - type: nc
+        endpoint: cybreak.miraii.dev
+        port: 8583
+    flags:
+      rctf: 'CYB26{ret2lib_bu7_different_but_st1ll_ret2l1b}'

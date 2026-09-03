@@ -1,0 +1,20 @@
+challenges:
+  - category: forensics
+    name: Viewer
+    author: Haalloobim
+    description: |
+      A definitely easy forensic challenge. ^^
+
+      [Download the memory image](https://drive.google.com/file/d/1I2Q3K9bZ3mya08n1qa9z575ImYBlvQXW/view?usp=sharing)
+
+      **Archive password:** `ThisSecurePassword123123#!*$%`
+
+      **SHA-256:** `5adf99ac19eeacc14d39737f84a11209bf1eb8cf6039d405d4ab11ca96b9e525`
+    tags:
+      - Easy
+    endpoints:
+      - type: nc
+        endpoint: cybreak.miraii.dev
+        port: 51337
+    flags:
+      rctf: 'CYB26{1_H0P3_y0u_L34rN_N3W_7h1n92_fr0M_l1Nux_m3m0Ry}'

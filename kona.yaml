@@ -1,0 +1,10 @@
+secrets:
+  token:
+    env: RCTF_TOKEN
+
+rctf:
+  base_url: https://cybreak.miraii.dev
+  team_token:
+    secret: token
+
+challenge_id_format: path

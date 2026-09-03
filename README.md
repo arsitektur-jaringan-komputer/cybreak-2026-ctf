@@ -20,29 +20,39 @@ Repository ini digunakan untuk dokumentasi dan tracking challenge CTF untuk CYBR
 
 ## Folder Structure
 
-Dikarenakan CYBREAK 2026 hanya 1 ronde, repositori hanya memiliki 1 subfolder yaitu **challenges**, yang masing-masing di dalamnya ada kategorisasi folder sebagai berikut
+Kategori challenge berada langsung di root repositori. File `kona.yaml` di root
+menyimpan konfigurasi global Konata untuk sinkronisasi ke rCTF, sedangkan setiap
+challenge memiliki `kona.yaml` sendiri yang berisi metadata, flag, attachment,
+dan endpoint challenge.
 
-```
-challenges/
-├── crypto
-├── forensic
-├── pwn
-├── reverse
-└── web
-```
-
-Berikut adalah struktur folder untuk setiap challenge yang ada
-
-```
-<name>/
-├── release/
-│   └── ...
-├── source/
-│   └── <name>/
-│       └── ...
-└── poc/
-    └── ...
+```text
+cybreak-2026-ctf/
+├── .github/
+│   └── workflows/
+│       └── sync-challenges.yaml
+├── crypto/
+├── forensics/
+├── pwn/
+├── reverse/
+├── web/
+├── kona.yaml
 └── README.md
+```
+
+Berikut adalah struktur folder untuk setiap challenge:
+
+```text
+<category>/
+└── <name>/
+    ├── release/
+    │   └── ...
+    ├── source/
+    │   └── <name>/
+    │       └── ...
+    ├── poc/
+    │   └── ...
+    ├── kona.yaml
+    └── README.md
 ```
 
 Penjelasan:
@@ -55,7 +65,8 @@ Penjelasan:
 > Untuk menghindari conflict docker compose agar tidak ter-sync satu sama lain (🥲)
 
 4. **poc** adalah folder yang isinya adalah penjelasan cara solve dari setiap challenge **(wajib)**.
-5. **README.md** digunakan untuk memberikan keterangan setiap challenge tersebut. Berikut template README.md yang dapat digunakan.
+5. **kona.yaml** berisi konfigurasi challenge yang akan disinkronkan ke rCTF.
+6. **README.md** digunakan untuk memberikan keterangan setiap challenge tersebut. Berikut template README.md yang dapat digunakan.
 
 ```md
 # <name>
@@ -78,3 +89,25 @@ CYB26{sample}
 ```
 
 ## tia 💖
+
+# Challenges
+
+> Untuk Author gunakan username Discord
+
+| Name          | Author       | Difficulty | Category |
+| ------------- | ------------ | ---------- | -------- |
+|               | nbl.irwn     | Easy       | Web      |
+| classroom     | abdiery      | Medium     | Web      |
+|               | rootkids     | Hard       | Web      |
+|               | lylera       | Easy       | Pwn      |
+| Kiwwwiiiiiiii | lylera       | Medium     | Pwn      |
+|               | mirai        | Hard       | Pwn      |
+|     Viewer    | kokguebitici | Easy       | Forensic |
+|               | UrSourceCode | Medium     | Forensic |
+|               | pujow        | Hard       | Forensic |
+|               | UrSourceCode | Easy       | Reverse  |
+|               | djumanto     | Medium     | Reverse  |
+|               | \_\_honque   | Hard       | Reverse  |
+|               | tsakuyaiba   | Easy       | Crypto   |
+|               | dailycisea   | Medium     | Crypto   |
+|               | tsakuyaiba   | Hard       | Crypto   |

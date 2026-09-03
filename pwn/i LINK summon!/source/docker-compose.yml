@@ -1,0 +1,16 @@
+services:
+  link:
+    build: .
+    container_name: link
+    ports:
+      - "4282:4282"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    pids_limit: 50
