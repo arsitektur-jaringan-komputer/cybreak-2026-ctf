@@ -10,18 +10,18 @@ Easy
 
 ## Description
 
-**Double Arcane Lock** is a cooperative abjuration spell used to protect a
+**Double Arcane Lock** is a abjuration spell used to protect a
 secret scroll. Two Wizards cast different incantations upon the same runic
 circle, believing that two different powers will create two independent layers
 of protection.
 
 Rudy raises his staff.
 
-> “I CAST ARCANE LOCK!” — Power 15!
+> “I CAST ARCANE LOCK!” -> NAT 15!
 
 Then Seria follows.
 
-> “I CAST ARCANE LOCK!” — NAT 20!
+> “I CAST ARCANE LOCK!” -> NAT 20!
 
 Surely it is twice as secure... right?
 
