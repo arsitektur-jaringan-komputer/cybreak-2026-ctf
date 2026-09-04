@@ -1,0 +1,22 @@
+challenges:
+  - category: forensics
+    name: nodemation
+    author: UrSourceCode
+    description: |
+      An n8n automation host was isolated after suspicious workflow executions and local
+      outbound traffic were observed. Analyze the supplied incident archive, then answer
+      the forensic quiz service to recover the flag.
+
+      Connect: `nc cybreak.miraii.dev 31338`
+    tags:
+      - Medium
+    attachments:
+      files:
+        - release/nodemation.zip
+      strip_components: 1
+    endpoints:
+      - type: nc
+        endpoint: cybreak.miraii.dev
+        port: 31338
+    flags:
+      rctf: 'CYB26{5usp1c10us_w0rkfl0w_3xecut10n_iN_n8n_s4ndb0x}'
