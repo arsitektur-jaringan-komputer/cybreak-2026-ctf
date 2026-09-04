@@ -5,7 +5,7 @@ challenges:
     description: |
       Let's play with int, shall we?
     tags:
-      - Easy
+      - Medium
     attachments:
       pre_compressed:
         - release/intoretlib.zip

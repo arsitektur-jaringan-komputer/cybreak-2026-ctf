@@ -99,8 +99,8 @@ CYB26{sample}
 |               | nbl.irwn     | Easy       | Web      |
 | classroom     | abdiery      | Medium     | Web      |
 |               | rootkids     | Hard       | Web      |
-|               | lylera       | Easy       | Pwn      |
-| Kiwwwiiiiiiii | lylera       | Medium     | Pwn      |
+| i LINK summon!| lylera       | Easy       | Pwn      |
+| intoretlib    | lylera       | Medium     | Pwn      |
 |               | mirai        | Hard       | Pwn      |
 |     Viewer    | kokguebitici | Easy       | Forensic |
 |               | UrSourceCode | Medium     | Forensic |

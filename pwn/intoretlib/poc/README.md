@@ -48,7 +48,7 @@ after you know the maximum value of int from website, you can overflow it and ga
 
 Overflow until the offset is 56, then you can escalate to ret2lib using old ways: https://ir0nstone.gitbook.io/notes/binexp/stack/aslr/ret2plt-aslr-bypass 
 
-leaks the puts, then you can get shell. So there are 2 ways to gain shell. using double ret or rdi directly instead
+leaks the puts, then you can get shell. So there are 2 ways to gain shell. using double ret or rdi directly instead. Also i gave `libc` and `ld` too to solve it on local first!
 
 # 『source:』
 

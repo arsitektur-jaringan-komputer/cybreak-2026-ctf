@@ -6,7 +6,7 @@ lylera_
 
 ## Difficulty
 
-medium
+Easy
 
 ## Description
 

