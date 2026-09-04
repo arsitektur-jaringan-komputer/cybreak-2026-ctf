@@ -75,6 +75,7 @@ The output is the original PNG file:
 $ file recovered.png
 recovered.png: PNG image data, ...
 ```
+![flag](assets/flag.png)
 
 ```text
 CYB26{y0u_4r3_r3al1y_g4wd_4t_r3c0ver1ng_pnG}
