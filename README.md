@@ -103,11 +103,11 @@ CYB26{sample}
 | intoretlib    | lylera       | Medium     | Pwn      |
 |               | mirai        | Hard       | Pwn      |
 |     Viewer    | kokguebitici | Easy       | Forensic |
-|               | UrSourceCode | Medium     | Forensic |
-|               | pujow        | Hard       | Forensic |
+| nodemation    | UrSourceCode | Medium     | Forensic |
+| dont be like that crazy | pujow        | Hard       | Forensic |
 |               | UrSourceCode | Easy       | Reverse  |
-|               | djumanto     | Medium     | Reverse  |
-|               | \_\_honque   | Hard       | Reverse  |
-|               | tsakuyaiba   | Easy       | Crypto   |
+| Ziggy Zagga   | djumanto     | Medium     | Reverse  |
+| stop, wait a minute | \_\_honque   | Hard       | Reverse  |
+| I CAST ARCANE LOCK... TWICE! | tsakuyaiba   | Easy       | Crypto   |
 |               | dailycisea   | Medium     | Crypto   |
 |               | tsakuyaiba   | Hard       | Crypto   |
