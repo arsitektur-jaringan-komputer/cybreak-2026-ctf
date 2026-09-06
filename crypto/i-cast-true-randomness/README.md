@@ -2,7 +2,7 @@
 
 ## Author
 
-TSakuyaiaba
+TSakuyaiba
 
 ## Difficulty
 
