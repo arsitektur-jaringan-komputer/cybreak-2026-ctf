@@ -1,0 +1,17 @@
+challenges:
+  - category: reverse
+    name: ZiggyZagga
+    author: DJumanto
+    description: |
+      The sea changes its mind, but the shell remembers.
+    tags:
+      - Medium
+    attachments:
+      pre_compressed:
+        - release/ZiggyZagga.zip
+    endpoints:
+      - type: http
+        endpoint: cybreak.miraii.dev
+        port: 5000
+    flags:
+      rctf: 'CYB26{W34th3R_R3P0RTTT_x_DPT_DPT}'
