@@ -1,0 +1,27 @@
+challenges:
+  - category: crypto
+    name: I CAST TRUE RANDOMNESS!
+    author: TSakuyaiba
+    description: |
+      **True Randomness** is a Level 9 divination spell invented by Rudy.
+      With the Astral Dice, the caster creates a fresh number every time
+      a prophecy is signed.
+
+      The multiplier engraved on the dice is public, but its hidden push
+      remains secret.
+
+      Rudy raises his staff: "I CAST TRUE RANDOMNESS!"  NAT 20!
+
+      Three prophecies were signed, and the Astral Vault was sealed using
+      the same private magic.
+
+      But... is it truly random?
+      <img src="https://media1.tenor.com/m/9-kJ6wVClJoAAAAd/neverwinter-d20.gif">
+    tags:
+      - Hard
+    attachments:
+      files:
+        - release/chall.py
+      strip_components: 1
+    flags:
+      rctf: 'CYB26{hahahahahahaha:_you_fell_into_my_trap_the_dice_is_never_random_or_is_it_^^?}'
