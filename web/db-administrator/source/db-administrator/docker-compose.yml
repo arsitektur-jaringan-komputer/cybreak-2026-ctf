@@ -1,0 +1,63 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: db-administrator-db
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass123
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    networks:
+      - challnet
+
+  pgadmin:
+    build: .
+    image: db-administrator/pgadmin4:8.3
+    container_name: db-administrator-pgadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: player@ctf.dev
+      PGADMIN_DEFAULT_PASSWORD: player123
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
+      PGADMIN_CONFIG_SERVER_MODE: "True"
+    ports:
+      - "8090:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1/')"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    networks:
+      - challnet
+
+  sweeper:
+    image: alpine:3.19
+    container_name: db-administrator-sweeper
+    depends_on:
+      - pgadmin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    entrypoint: ["sh", "-c"]
+    command: >
+      "while true; do
+         find /var/lib/pgadmin/storage -mindepth 1 -maxdepth 3 -delete 2>/dev/null;
+         sleep 15;
+       done"
+    networks:
+      - challnet
+
+networks:
+  challnet:
+    driver: bridge
+
+volumes:
+  pgadmin_data:

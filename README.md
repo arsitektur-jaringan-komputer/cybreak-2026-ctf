@@ -96,7 +96,7 @@ CYB26{sample}
 
 | Name          | Author       | Difficulty | Category |
 | ------------- | ------------ | ---------- | -------- |
-|               | nbl.irwn     | Easy       | Web      |
+| DB Administrator | nbl.irwn     | Easy       | Web      |
 | classroom     | abdiery      | Medium     | Web      |
 |               | rootkids     | Hard       | Web      |
 | i LINK summon!| lylera       | Easy       | Pwn      |
