@@ -1,0 +1,31 @@
+services:
+  device:
+    build:
+      context: device
+      dockerfile: Dockerfile
+    privileged: true
+    environment:
+      SU_NAME: ${SU_NAME}
+      MAX_MEMORY: "8192"
+    networks:
+      - default
+    restart: always
+
+  web:
+    build:
+      context: web
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - device
+    environment:
+      SU_NAME: ${SU_NAME}
+      # DEV: true
+    networks:
+      - default
+    restart: always
+
+networks:
+  default:
+    driver: bridge
