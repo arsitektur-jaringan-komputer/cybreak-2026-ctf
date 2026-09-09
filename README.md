@@ -109,5 +109,5 @@ CYB26{sample}
 | Ziggy Zagga   | djumanto     | Medium     | Reverse  |
 | stop, wait a minute | \_\_honque   | Hard       | Reverse  |
 | I CAST ARCANE LOCK... TWICE! | tsakuyaiba   | Easy       | Crypto   |
-|               | dailycisea   | Medium     | Crypto   |
+| im-unraveled  | dailycisea   | Medium     | Crypto   |
 |               | tsakuyaiba   | Hard       | Crypto   |

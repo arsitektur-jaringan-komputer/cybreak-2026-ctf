@@ -1,0 +1,11 @@
+services:
+  im-unraveled:
+    build: .
+    container_name: im-unraveled
+    ports:
+      - "13337:13337"
+    restart: unless-stopped
+    mem_limit: 256m
+    pids_limit: 128
+    security_opt:
+      - no-new-privileges:true
