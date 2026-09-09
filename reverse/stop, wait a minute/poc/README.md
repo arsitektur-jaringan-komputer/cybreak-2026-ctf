@@ -10,7 +10,9 @@ $ ./halt
 ```
 
 Decompiling the main function, we can see:
+
 ![Decompiled main func](decomp.png)
+
 1. The program expecting 1 argument to be included (the <key>)
 2. The argument expected length is 32 char (0x20 in hexadecimal is 32 in decimal)
 3. The program setting up a custom signal handler
@@ -18,6 +20,7 @@ Decompiling the main function, we can see:
 5. The program running the shellcode as a validator
 
 If we were to take a look at the shellcode, we would see that it is gibberish, indicating that the shellcode is encrypted
+
 ![Blob](blob.png)
 
 When dealing with encrypted binary like these, the most common approach is to dump the encrypted blob AFTER it has finished decrypting. With enough assumption, one can come to the conclusion that the shellcode is decrypted at runtime, checks the flag, and then returns the result. And so, we will be using gdb for the debugger. Actually, before we start debugging, it wouldnt be a stretch to assume that signals will play some role in this binary/shellcode given the custom handler. With that in mind, we can prepare the debugger by having gdb not terminate on these signals by using:
@@ -29,6 +32,7 @@ handle SIGILL nostop noprint pass   # tell gdb to not stop, not print anything, 
 ```
 
 Now we need to determine where to put our breakpoint.
+
 ![Shellcode call disassembly](disasm.png)
 
 Here we can see the call to the shellcode (stored in rax) and the immediate instructions. We can put the breakpoint in any of these, i would recommend putting it AFTER the call instruction for safekeeping. Lets say, for the sake of this writeup, we put the breakpoint in the mov instruction, which means we will be putting a breakpoint in the address 0x4014a8. However this address is following the base virtual address set by the decompiler, which could be different from what the actual base address is in your machine. Now i know that the base address set by my decompiler starts in 0x400000 so i can just subtract it and get the relative address 0x14a8. Next, to know what the virtual address of your machine is, you can run this command in gdb:
