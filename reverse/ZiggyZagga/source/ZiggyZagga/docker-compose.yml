@@ -6,7 +6,7 @@ services:
     privileged: true
     environment:
       SU_NAME: ${SU_NAME}
-      MAX_MEMORY: "8192"
+      MAX_MEMORY: "4096"
     networks:
       - default
     restart: always
