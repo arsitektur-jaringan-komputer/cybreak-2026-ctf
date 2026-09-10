@@ -1,0 +1,6 @@
+services:
+  challenge:
+    build: .
+    ports:
+      - "2003:1337"
+    restart: unless-stopped
