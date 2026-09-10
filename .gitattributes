@@ -1,0 +1,4 @@
+web/classroom/source/classroom/entrypoint.sh text eol=lf
+forensics/Viewer/source/viewer/start.sh text eol=lf
+pwn/useless/release/entrypoint.sh text eol=lf
+pwn/useless/source/entrypoint.sh text eol=lf
