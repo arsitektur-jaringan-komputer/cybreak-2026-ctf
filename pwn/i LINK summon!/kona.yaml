@@ -10,11 +10,11 @@ challenges:
       - Easy
     attachments:
       files:
-        - release/chall
+        - release/LINK_LINK
       strip_components: 1
     endpoints:
       - type: nc
-        endpoint: cybreak.miraii.dev
-        port: 4282
+        endpoint: ctf.cybreak.org
+        port: 2001
     flags:
       rctf: 'CYB26{link3d_7his_link_that_LINKING}'

@@ -11,7 +11,7 @@ challenges:
         - release/intoretlib.zip
     endpoints:
       - type: nc
-        endpoint: cybreak.miraii.dev
-        port: 8583
+        endpoint: ctf.cybreak.org
+        port: 2002
     flags:
       rctf: 'CYB26{ret2lib_bu7_different_but_st1ll_ret2l1b}'

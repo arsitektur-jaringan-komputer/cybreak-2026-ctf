@@ -27,7 +27,7 @@ services:
       PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
       PGADMIN_CONFIG_SERVER_MODE: "True"
     ports:
-      - "8090:80"
+      - "1002:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     healthcheck:

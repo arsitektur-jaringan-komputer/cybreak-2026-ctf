@@ -24,7 +24,7 @@ To install the POC tester, follow these steps:
     bash ./run.sh
     ```
 
-4. Open your browser and go to port 5000:
+4. Open your browser and go to port 5001:
 
     ![alt text](image.png)
 

@@ -3,7 +3,7 @@ services:
     build: .
     container_name: intoretlib
     ports:
-      - "8583:8583"
+      - "2002:8583"
     restart: unless-stopped
     read_only: true
     tmpfs:

@@ -16,7 +16,7 @@ forensic quiz service to recover the flag.
 
 SHA256: `f635cd1a1dc34d8c96428ed992dc5612824b6ef8172ec569ffa10523dfdd900c`
 
-Quiz server: `nc <host> 31338`
+Quiz server: `nc <host> 4002`
 
 ## Flag
 

@@ -1,0 +1,6 @@
+services:
+  challenge:
+    build: .
+    ports:
+      - "4002:31338"
+    restart: unless-stopped

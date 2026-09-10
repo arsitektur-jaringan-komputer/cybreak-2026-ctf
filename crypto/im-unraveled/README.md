@@ -13,7 +13,7 @@ Medium
 'Cause, baby, I'm unraveled (I'm unraveled)
 
 ```
-nc cybreak.miraii.dev 13337
+nc ctf.cybreak.org 3001
 ```
 
 ## Flag

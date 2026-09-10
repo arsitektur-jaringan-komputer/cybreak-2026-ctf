@@ -9,7 +9,7 @@ services:
     hostname: classroom
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "1001:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000

@@ -16,7 +16,7 @@ challenges:
         - release/classroom_dist.zip
     endpoints:
       - type: http
-        endpoint: cybreak.miraii.dev
-        port: 3000
+        endpoint: ctf.cybreak.org
+        port: 1001
     flags:
       rctf: 'CYB26{t0d4y_cl4ss_1S_h0w_T0_Ch4in1n9}'

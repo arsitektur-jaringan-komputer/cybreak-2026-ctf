@@ -8,4 +8,4 @@ services:
       nproc: 65535
       core: 0
     ports:
-      - "51337:1337"
+      - "4001:1337"

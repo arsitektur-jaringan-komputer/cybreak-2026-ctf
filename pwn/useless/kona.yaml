@@ -1,0 +1,19 @@
+challenges:
+  - category: pwn
+    name: useless
+    author: elysia
+    description: |
+      mirai told me to create this chall since someone says they don't want him to create challenges. so here we are (˶˃ ᵕ ˂˶)♡
+      <img src=https://static2.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/4a/0e/7MvucYGN9KVXJV9p.gif>
+    tags:
+      - Hard
+    attachments:
+      files:
+        - release/
+      strip_components: 1
+    endpoints:
+      - type: nc
+        endpoint: ctf.cybreak.org
+        port: 2003
+    flags:
+      rctf: 'CYB26{ya_saya_kehabisan_ide_jadi_buat_soal_yang_gini_ajalah_capek_saya_huhuhuhu_(┬┬﹏┬┬)}'

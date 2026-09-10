@@ -14,7 +14,7 @@ challenges:
         - release/db-administrator_dist.zip
     endpoints:
       - type: http
-        endpoint: cybreak.miraii.dev
-        port: 8090
+        endpoint: ctf.cybreak.org
+        port: 1002
     flags:
       rctf: 'CYB26{p4th_tr4v3rsAl_in_s3s51on_h4ndl1ng_to_RCEE3EE}'

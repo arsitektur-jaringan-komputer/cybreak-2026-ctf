@@ -3,7 +3,7 @@ services:
     build: .
     container_name: im-unraveled
     ports:
-      - "13337:13337"
+      - "3001:13337"
     restart: unless-stopped
     mem_limit: 256m
     pids_limit: 128
