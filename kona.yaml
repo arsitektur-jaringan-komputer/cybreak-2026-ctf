@@ -3,7 +3,7 @@ secrets:
     env: RCTF_TOKEN
 
 rctf:
-  base_url: https://cybreak.miraii.dev
+  base_url: https://ctf.cybreak.org
   team_token:
     secret: token
 
