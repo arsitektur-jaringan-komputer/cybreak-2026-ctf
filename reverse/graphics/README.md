@@ -15,4 +15,4 @@ message. Analyze the executable to recover the flag.
 
 ## Flag
 
-CYB26{*}
+CYB26{y0u_4r3_r3al1y_g4wd_4t_r3c0ver1ng_pnG}

@@ -1,0 +1,14 @@
+challenges:
+  - category: reverse
+    name: stop, wait a minute
+    author: 0xhonque
+    description: |
+      halt right there!
+    tags:
+      - Hard
+    attachments:
+      files:
+        - release/halt
+      strip_components: 1
+    flags:
+      rctf: 'CYB26{0f3ada50d3b92f09673296a262051763}'
