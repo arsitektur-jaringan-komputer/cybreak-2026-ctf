@@ -1,14 +1,16 @@
 challenges:
   - category: web
-    name: Simple App
+    name: Impossible Web
     author: rootkids
     description: |
-      Nothing, just simple app
+      Impossible, but I guest nothing is impossible? right?
+
+      NOTE: Solve locally first!!! after you solve local and can't solve remotely, please dm @rootkids
     tags:
       - Hard
     attachments:
       pre_compressed:
-        - release/simple-app.zip
+        - release/impossible-web.zip
       endpoints:
         - type: http
           endpoint: ctf.cybreak.org

@@ -98,7 +98,7 @@ CYB26{sample}
 | ---------------------------- | ------------ | ---------- | -------- |
 | DB Administrator             | nbl.irwn     | Easy       | Web      |
 | classroom                    | abdiery      | Medium     | Web      |
-| Simple App                   | rootkids     | Hard       | Web      |
+| Impossible Web               | rootkids     | Hard       | Web      |
 | i LINK summon!               | lylera       | Easy       | Pwn      |
 | intoretlib                   | lylera       | Medium     | Pwn      |
 | useless                      | mirai        | Hard       | Pwn      |
