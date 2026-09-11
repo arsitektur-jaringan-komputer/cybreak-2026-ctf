@@ -3,7 +3,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages for building and running the application
 RUN apt-get update -y && \
-    apt-get install -y socat && \
+    apt-get install -y socat util-linux && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -18,14 +18,14 @@ COPY entrypoint.sh /entrypoint.sh
 COPY chall /home/mirai/
 
 # Copy the flag
-COPY flag.txt /home/mirai/flag.txt
+RUN mkdir -p /run/ctf && ln -s /run/ctf/flag.txt /home/mirai/flag.txt
 
 # Set permissions to make necessary files read-only
 RUN chmod +x /entrypoint.sh
 RUN chmod 111 /home/mirai/chall
-RUN chmod 444 /home/mirai/flag.txt
-RUN chmod -R 555 /home/mirai
+RUN chmod 555 /home/mirai
 
 # Expose port
 EXPOSE 1337
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["socat", "TCP-LISTEN:1337,reuseaddr,fork", "EXEC:/home/mirai/chall,stderr"]

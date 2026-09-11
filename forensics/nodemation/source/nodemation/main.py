@@ -4,7 +4,9 @@ import socketserver
 import sys
 import logging
 
-FLAG = "CYB26{5usp1c10us_w0rkfl0w_3xecut10n_iN_n8n_s4ndb0x}"
+FLAG = os.environ.pop("RCTF_FLAG", "")
+if not FLAG:
+    raise RuntimeError("RCTF_FLAG must be supplied by the instancer")
 
 TOKEN = os.environ.get("QUIZ_TOKEN", "elsche-1788423551")
 RUNTIME_DIR = os.path.dirname(os.path.abspath(__file__))

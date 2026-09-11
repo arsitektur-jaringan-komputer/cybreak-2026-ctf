@@ -12,9 +12,38 @@ challenges:
       files:
         - release/chall.py
       strip_components: 1
-    endpoints:
-      - type: nc
-        endpoint: ctf.cybreak.org
-        port: 3001
     flags:
-      rctf: 'CYB26{4nd_my_h34d_i5_full_0f_p0i50n_4nd_my_h34rt_i5_full_0f_d0ubt_i_g0t_t0xin5_in_my_bl00d5tr34m_y0u_tri3d_h4rd_t0_5uck_3m_0ut}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{4nd_my_h34d_i5_full_0f_p0i50n_4nd_my_h34rt_i5_full_0f_d0ubt_i_g0t_t0xin5_in_my_bl00d5tr34m_y0u_tri3d_h4rd_t0_5uck_3m_0ut}'
+            mode: tail
+    instancerConfig:
+      instancer: docker-im-unraveled
+      challengeIntegrationId: im-unraveled
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          challenge:
+            image: cybreak/im-unraveled:instancer-v1
+            environment:
+              RCTF_FLAG: ${RCTF_FLAG}
+            networks:
+            - egress
+            read_only: true
+            mem_limit: 512m
+            cpus: 0.5
+            pids_limit: 320
+            tmpfs:
+              /home/ctf/logs: size=128m,uid=1000,gid=1000,mode=0755
+              /tmp: size=16m,mode=1777
+        networks:
+          egress:
+            internal: false
+      expose:
+      - kind: tcp-ssl
+        hostPrefix: im-unraveled
+        containerName: challenge
+        containerPort: 13337
+        title: im unraveled

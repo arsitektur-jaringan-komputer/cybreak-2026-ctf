@@ -13,6 +13,7 @@ COPY main.py /home/ctf/
 RUN chown -R root:root /home/ctf && \
     chmod -R 555 /home/ctf && touch /home/ctf/answers.log && chmod 666 /home/ctf/answers.log
 
+USER ctf
 EXPOSE 1337
 
-ENTRYPOINT ["socat", "-d", "-d", "TCP-LISTEN:1337,reuseaddr,fork,nodelay,su=ctf", "EXEC:'timeout 120 python3 main.py'"]
+ENTRYPOINT ["socat", "-d", "-d", "TCP-LISTEN:1337,reuseaddr,fork,nodelay", "EXEC:'timeout 120 python3 main.py'"]

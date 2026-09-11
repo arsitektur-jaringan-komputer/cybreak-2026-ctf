@@ -3,15 +3,22 @@ services:
     build: .
     container_name: im-unraveled
     ports:
-      - "3001:13337"
+    - 3001:13337
     restart: unless-stopped
     mem_limit: 512m
     pids_limit: 320
     security_opt:
-      - no-new-privileges:true
+    - no-new-privileges:true
     healthcheck:
-      test: ["CMD", "python3", "-c", "import socket; socket.create_connection(('127.0.0.1', 13337), 3).close()"]
+      test:
+      - CMD
+      - python3
+      - -c
+      - import socket; socket.create_connection(('127.0.0.1', 13337), 3).close()
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
+    image: cybreak/im-unraveled:instancer-v1
+    environment:
+      RCTF_FLAG: CYB26{local_testing_flag}

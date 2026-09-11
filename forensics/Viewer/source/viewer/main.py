@@ -4,7 +4,9 @@ import time
 import logging
 from datetime import datetime
 
-FLAG = "CYB26{1_H0P3_y0u_L34rN_N3W_7h1n92_fr0M_l1Nux_m3m0Ry}"
+FLAG = os.environ.pop("RCTF_FLAG", "")
+if not FLAG:
+    raise RuntimeError("RCTF_FLAG must be supplied by the instancer")
 
 CHALLENGES = [
     {
@@ -55,7 +57,7 @@ CHALLENGES = [
     },
 ]
 
-LOG_FILE = "/home/ctf/answers.log"
+LOG_FILE = os.environ.get("QUIZ_LOG", "/tmp/answers.log")
 logging.basicConfig(
     filename=LOG_FILE,
     level=logging.INFO,

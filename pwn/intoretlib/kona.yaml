@@ -9,9 +9,42 @@ challenges:
     attachments:
       pre_compressed:
         - release/intoretlib.zip
-    endpoints:
-      - type: nc
-        endpoint: ctf.cybreak.org
-        port: 2002
     flags:
-      rctf: 'CYB26{ret2lib_bu7_different_but_st1ll_ret2l1b}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{ret2lib_bu7_different_but_st1ll_ret2l1b}'
+            mode: tail
+    instancerConfig:
+      instancer: docker-intoretlib
+      challengeIntegrationId: intoretlib
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          challenge:
+            image: cybreak/intoretlib:instancer-v1
+            environment:
+              RCTF_FLAG: ${RCTF_FLAG}
+            networks:
+            - egress
+            read_only: true
+            mem_limit: 128m
+            cpus: 0.5
+            pids_limit: 50
+            cap_add:
+            - CHOWN
+            - SETUID
+            - SETGID
+            tmpfs:
+              /run/ctf: size=1m,mode=0755
+              /tmp: size=16m,mode=1777
+        networks:
+          egress:
+            internal: false
+      expose:
+      - kind: tcp-ssl
+        hostPrefix: intoretlib
+        containerName: challenge
+        containerPort: 8583
+        title: intoretlib
