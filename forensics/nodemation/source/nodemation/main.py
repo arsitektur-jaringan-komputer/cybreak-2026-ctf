@@ -16,7 +16,10 @@ CHALLENGES = [
         "question": "What sequence in the malicious workflow enables process execution?",
         "format": "function, module, function",
         "example": "someFunction, some_module, anotherFunction",
-        "valid_answers": ["getbuiltinmodule, child_process, execsync"],
+        "valid_answers": [
+            "getbuiltinmodule, child_process, execsync",
+            "execsync, child_process, getbuiltinmodule",
+        ],
         "case_insensitive": True,
     },
     {
