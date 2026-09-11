@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple App</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111522;
+      --panel: #1b2234;
+      --panel-2: #252d42;
+      --ink: #f5f7ff;
+      --muted: #aeb8cf;
+      --line: #4b5778;
+      --line-hot: #91a6e8;
+      --coin: #ffd166;
+      --blue: #58a6ff;
+      --blue-dark: #3577bd;
+      --green: #42d77d;
+      --green-dark: #27a85b;
+      --red: #ff6b84;
+      --red-dark: #c94960;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        radial-gradient(circle at top, #202a44 0, var(--bg) 44rem);
+      background-size: 18px 18px, 18px 18px, auto;
+      color: var(--ink);
+      font-family: "Courier New", Courier, monospace;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    .scanline {
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.035),
+        rgba(255,255,255,.035) 1px,
+        transparent 1px,
+        transparent 5px
+      );
+      inset: 0;
+      pointer-events: none;
+      position: fixed;
+    }
+
+    .shell {
+      margin: 0 auto;
+      max-width: 1120px;
+      padding: 28px 20px 52px;
+      position: relative;
+    }
+
+    .topbar {
+      align-items: center;
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      border-left: 6px solid var(--coin);
+      padding-left: 14px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .subtitle,
+    .hint,
+    .empty,
+    small {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+    }
+
+    .layout {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, .75fr);
+    }
+
+    .panel,
+    .note,
+    .inventory-slot,
+    .empty {
+      background: var(--panel);
+      border: 2px solid var(--line);
+      box-shadow: 0 0 0 4px rgba(0,0,0,.25);
+    }
+
+    .panel {
+      padding: 16px;
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    .panel-head {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      color: var(--coin);
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: 1rem;
+      overflow-wrap: anywhere;
+    }
+
+    .badge {
+      background: #0c101b;
+      border: 2px solid var(--line);
+      color: var(--green);
+      display: inline-flex;
+      font-size: .85rem;
+      font-weight: 700;
+      padding: 7px 9px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge.warn {
+      color: var(--coin);
+    }
+
+    .note-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      color: var(--coin);
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    textarea {
+      background: #0c101b;
+      border: 2px solid var(--line);
+      color: var(--ink);
+      font: inherit;
+      padding: 11px;
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .note-list,
+    .inventory-list {
+      display: grid;
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .note,
+    .inventory-slot {
+      padding: 13px;
+    }
+
+    .note.done {
+      opacity: .72;
+    }
+
+    .note.done h3,
+    .note.done .note-body {
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
+
+    .note-body {
+      color: var(--muted);
+      margin-top: 8px;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    .note-actions,
+    .inventory-actions,
+    .nav-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button,
+    .button,
+    .link-button {
+      border: 0;
+      box-shadow: inset -3px -3px 0 rgba(0,0,0,.25), inset 3px 3px 0 rgba(255,255,255,.18);
+      cursor: pointer;
+      display: inline-flex;
+      font: inherit;
+      font-weight: 700;
+      justify-content: center;
+      min-height: 42px;
+      padding: 11px 14px;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    button,
+    .button {
+      background: var(--green);
+      color: #07100b;
+    }
+
+    button:hover,
+    .button:hover {
+      background: var(--green-dark);
+    }
+
+    .secondary {
+      background: var(--blue);
+      color: #07101f;
+    }
+
+    .secondary:hover {
+      background: var(--blue-dark);
+    }
+
+    .danger {
+      background: var(--red);
+      color: #22050b;
+    }
+
+    .danger:hover {
+      background: var(--red-dark);
+    }
+
+    .link-button {
+      background: var(--panel-2);
+      border: 2px solid var(--line);
+      box-shadow: none;
+      color: var(--ink);
+    }
+
+    .link-button:hover {
+      border-color: var(--line-hot);
+    }
+
+    .inventory-slot {
+      display: grid;
+      gap: 10px;
+    }
+
+    .file-link {
+      color: var(--ink);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      text-decoration: none;
+    }
+
+    .file-link::before {
+      color: var(--coin);
+      content: "ITEM ";
+    }
+
+    .file-link:hover {
+      text-decoration: underline;
+    }
+
+    .empty {
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .topbar,
+      .layout,
+      .panel-head {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 560px) {
+      button,
+      .button,
+      .link-button {
+        width: 100%;
+      }
+    }
+  </style>
+  <script>
+    function rename(uuid) {
+      const newName = prompt("New filename?");
+      if (!newName) return;
+      fetch("/rename/" + uuid, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ new_filename: newName }),
+      }).then((res) => {
+        if (res.ok) location.reload();
+        else alert("Rename failed. Please try again.");
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="scanline"></div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Simple App</h1>
+        <p class="subtitle">Notes are live. Inventory is being built, but uploads still work.</p>
+      </div>
+      <nav class="nav-actions" aria-label="Quick actions">
+        <a class="button" href="#new-note">New Note</a>
+        <a class="link-button" href="/upload">Inventory Upload</a>
+      </nav>
+    </header>
+
+    <div class="layout">
+      <section>
+        <div class="panel" id="new-note">
+          <div class="panel-head">
+            <h2>Notes</h2>
+            <span class="badge">Functional</span>
+          </div>
+          <form class="note-form" method="post" action="/notes">
+            <div>
+              <label for="title">Title</label>
+              <input id="title" name="title" type="text" maxlength="120" />
+            </div>
+            <div>
+              <label for="body">Note</label>
+              <textarea id="body" name="body"></textarea>
+            </div>
+            <button type="submit">Save Note</button>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Saved Notes</h2>
+            <span class="badge">{{ len .Notes }} Slots</span>
+          </div>
+          {{ if .Notes }}
+          <ul class="note-list">
+            {{ range .Notes }}
+            <li class="note{{ if .Completed }} done{{ end }}">
+              <h3>{{ .UnsafeTitle }}</h3>
+              {{ if .Body }}<p class="note-body">{{ .UnsafeBody }}</p>{{ end }}
+              <small>{{ .CreatedAt }}</small>
+              <div class="note-actions">
+                <form method="post" action="/notes/{{ .ID }}/toggle">
+                  <button class="secondary" type="submit">{{ if .Completed }}Restore{{ else }}Done{{ end }}</button>
+                </form>
+                <form method="post" action="/notes/{{ .ID }}/delete">
+                  <button class="danger" type="submit">Delete</button>
+                </form>
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+          {{ else }}
+          <div class="empty">No notes saved yet.</div>
+          {{ end }}
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Inventory</h2>
+            <span class="badge warn">Under Construction</span>
+          </div>
+          <p class="hint">The inventory upload station is available while this module is still in progress.</p>
+          <div class="nav-actions">
+            <a class="button" href="/upload">Upload Item</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Items</h2>
+            <span class="badge">{{ len .Files }} Slots</span>
+          </div>
+          {{ if .Files }}
+          <ul class="inventory-list">
+            {{ range .Files }}
+            <li class="inventory-slot">
+              <a class="file-link" href="/uploads/{{ .UUID }}">{{ .Filename }}</a>
+              <div class="inventory-actions">
+                <a class="link-button" href="/uploads/{{ .UUID }}">Open</a>
+                <button class="secondary" onclick="rename('{{ .UUID }}')">Rename</button>
+              </div>
+            </li>
+            {{ end }}
+          </ul>
+          {{ else }}
+          <div class="empty">Inventory is empty.</div>
+          {{ end }}
+        </div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

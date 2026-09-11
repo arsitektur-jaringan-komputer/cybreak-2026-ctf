@@ -1,0 +1,7 @@
+name: simple-app
+services:
+  app:
+    build: .
+    ports:
+      - "1696:5000"
+    restart: on-failure

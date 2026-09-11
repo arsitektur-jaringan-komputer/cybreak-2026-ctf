@@ -1,0 +1,17 @@
+challenges:
+  - category: web
+    name: Simple App
+    author: rootkids
+    description: |
+      Nothing, just simple app
+    tags:
+      - Hard
+    attachments:
+      pre_compressed:
+        - release/simple-app.zip
+      endpoints:
+        - type: http
+          endpoint: ctf.cybreak.org
+          port: 1696
+      flags:
+        rctf: "CYB26{kata_mirai_'yahaha ai mu walaupun curang pake agentic gaada yang bisa solve soalku'_awokwaok}"
