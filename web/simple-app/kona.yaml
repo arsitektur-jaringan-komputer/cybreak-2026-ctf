@@ -21,7 +21,7 @@ challenges:
           app:
             image: cybreak/simple-app:latest
             read_only: false
-            mem_limit: 256m
+            mem_limit: 768m
             cpus: 0.5
             pids_limit: 128
       expose:
