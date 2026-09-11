@@ -4,8 +4,6 @@ challenges:
     author: dailycisea
     description: |
       'Cause, baby, I'm unraveled (I'm unraveled)
-
-      `nc ctf.cybreak.org 3001`
     tags:
       - Medium
     attachments:
@@ -26,11 +24,7 @@ challenges:
       config:
         services:
           challenge:
-<<<<<<< HEAD
-            image: cybreak/im-unraveled:instancer-v1
-=======
             image: cybreak/im-unraveled:latest
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
             environment:
               RCTF_FLAG: ${RCTF_FLAG}
             networks:

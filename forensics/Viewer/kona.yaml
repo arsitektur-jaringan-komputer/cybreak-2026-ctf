@@ -26,11 +26,7 @@ challenges:
       config:
         services:
           challenge:
-<<<<<<< HEAD
-            image: cybreak/viewer:instancer-v1
-=======
             image: cybreak/viewer:latest
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
             environment:
               RCTF_FLAG: ${RCTF_FLAG}
               QUIZ_LOG: /tmp/answers.log

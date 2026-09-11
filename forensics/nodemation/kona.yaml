@@ -6,8 +6,6 @@ challenges:
       An n8n automation host was isolated after suspicious workflow executions and local
       outbound traffic were observed. Analyze the supplied incident archive, then answer
       the forensic quiz service to recover the flag.
-
-      Connect: `nc ctf.cybreak.org 4002`
     tags:
       - Medium
     attachments:
@@ -28,11 +26,7 @@ challenges:
       config:
         services:
           challenge:
-<<<<<<< HEAD
-            image: cybreak/nodemation:instancer-v1
-=======
             image: cybreak/nodemation:latest
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
             environment:
               RCTF_FLAG: ${RCTF_FLAG}
               QUIZ_LOG: /tmp/answers.log

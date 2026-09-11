@@ -27,11 +27,7 @@ challenges:
       config:
         services:
           challenge:
-<<<<<<< HEAD
-            image: cybreak/useless:instancer-v1
-=======
             image: cybreak/useless:latest
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
             environment:
               RCTF_FLAG: ${RCTF_FLAG}
             networks:
@@ -41,10 +37,6 @@ challenges:
             cpus: 0.5
             pids_limit: 64
             cap_add:
-<<<<<<< HEAD
-            - CHOWN
-=======
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
             - SETUID
             - SETGID
             tmpfs:
