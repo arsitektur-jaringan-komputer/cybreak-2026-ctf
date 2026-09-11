@@ -14,9 +14,39 @@ challenges:
     attachments:
       pre_compressed:
         - release/classroom_dist.zip
-    endpoints:
-      - type: http
-        endpoint: ctf.cybreak.org
-        port: 1001
     flags:
-      rctf: 'CYB26{t0d4y_cl4ss_1S_h0w_T0_Ch4in1n9}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{t0d4y_cl4ss_1S_h0w_T0_Ch4in1n9}'
+            mode: tail
+    instancerConfig:
+      instancer: docker
+      challengeIntegrationId: classroom
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          app:
+            image: cybreak/classroom:latest
+            hostname: classroom
+            environment:
+              NODE_ENV: production
+              PORT: '3000'
+              RCTF_FLAG: ${RCTF_FLAG}
+            networks:
+              - egress
+            read_only: false
+            cap_drop: []
+            mem_limit: 512m
+            cpus: 1
+            pids_limit: 128
+        networks:
+          egress:
+            internal: false
+      expose:
+        - kind: https
+          hostPrefix: classroom
+          containerName: app
+          containerPort: 3000
+          title: classroom

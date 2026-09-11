@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
 
+if [ -n "${RCTF_FLAG:-}" ]; then
+    printf '%s\n' "$RCTF_FLAG" > /root/flag.txt
+fi
+unset RCTF_FLAG RCTF_FLAGS
+
 FLAG_NAME="$(tr -dc '0-9a-f' < /dev/urandom | head -c 12).txt"
 FLAG_PATH="/${FLAG_NAME}"
 
