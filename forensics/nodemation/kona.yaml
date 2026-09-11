@@ -16,7 +16,7 @@ challenges:
       rctf:
         - provider: flags/dynamic
           config:
-            base: 'CYB26{5usp1c10us_w0rkfl0w_3xecut10n_iN_n8n_s4ndb0x}'
+            base: 'CYB26{izin_bikin_soal_forens_biar_mykisah_bangga}'
             mode: tail
     instancerConfig:
       instancer: docker-nodemation
