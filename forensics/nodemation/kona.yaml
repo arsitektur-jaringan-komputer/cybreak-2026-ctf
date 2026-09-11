@@ -14,9 +14,38 @@ challenges:
       files:
         - release/nodemation.zip
       strip_components: 1
-    endpoints:
-      - type: nc
-        endpoint: ctf.cybreak.org
-        port: 4002
     flags:
-      rctf: 'CYB26{5usp1c10us_w0rkfl0w_3xecut10n_iN_n8n_s4ndb0x}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{5usp1c10us_w0rkfl0w_3xecut10n_iN_n8n_s4ndb0x}'
+            mode: tail
+    instancerConfig:
+      instancer: docker-nodemation
+      challengeIntegrationId: nodemation
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          challenge:
+            image: cybreak/nodemation:instancer-v1
+            environment:
+              RCTF_FLAG: ${RCTF_FLAG}
+              QUIZ_LOG: /tmp/answers.log
+            networks:
+            - egress
+            read_only: true
+            mem_limit: 64m
+            cpus: 0.5
+            pids_limit: 64
+            tmpfs:
+              /tmp: size=16m,mode=1777
+        networks:
+          egress:
+            internal: false
+      expose:
+      - kind: tcp-ssl
+        hostPrefix: nodemation
+        containerName: challenge
+        containerPort: 31338
+        title: nodemation

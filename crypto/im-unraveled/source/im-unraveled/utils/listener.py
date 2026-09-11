@@ -9,6 +9,9 @@ import time
 from logging.handlers import RotatingFileHandler
 from setproctitle import setproctitle
 
+IDLE_TIMEOUT = 120    # seconds without a request before the connection is dropped
+MAX_THREADS = 250     # this challenge holds connections for minutes, not seconds
+
 
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     def log(self, msg):
@@ -25,6 +28,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         self.log("connected")
+        self.request.settimeout(IDLE_TIMEOUT)
 
         c = Challenge()
         max_recv_size = 1024
@@ -56,12 +60,12 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                             buffer += chunk
                             if b"\n" in chunk:
                                 break
-                    except ConnectionResetError:
+                    except (ConnectionResetError, TimeoutError):
                         break
                 else:
                     try:
                         buffer = self.request.recv(max_recv_size)
-                    except ConnectionResetError:
+                    except (ConnectionResetError, TimeoutError):
                         break
 
                 if len(buffer) >= max_recv_size:
@@ -114,6 +118,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     allow_reuse_address = True
+    daemon_threads = True
 
 
 def start_server(port=0):
@@ -132,7 +137,7 @@ def start_server(port=0):
         server_thread.start()
 
         while True:
-            if threading.active_count() > 75:
+            if threading.active_count() > MAX_THREADS:
                 logging.error("Too many active threads, dying")
                 raise Exception()
             time.sleep(10)

@@ -12,9 +12,38 @@ challenges:
       **SHA-256:** `5adf99ac19eeacc14d39737f84a11209bf1eb8cf6039d405d4ab11ca96b9e525`
     tags:
       - Easy
-    endpoints:
-      - type: nc
-        endpoint: ctf.cybreak.org
-        port: 4001
     flags:
-      rctf: 'CYB26{1_H0P3_y0u_L34rN_N3W_7h1n92_fr0M_l1Nux_m3m0Ry}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{1_H0P3_y0u_L34rN_N3W_7h1n92_fr0M_l1Nux_m3m0Ry}'
+            mode: tail
+    instancerConfig:
+      instancer: docker-viewer
+      challengeIntegrationId: viewer
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          challenge:
+            image: cybreak/viewer:instancer-v1
+            environment:
+              RCTF_FLAG: ${RCTF_FLAG}
+              QUIZ_LOG: /tmp/answers.log
+            networks:
+            - egress
+            read_only: true
+            mem_limit: 64m
+            cpus: 0.5
+            pids_limit: 64
+            tmpfs:
+              /tmp: size=16m,mode=1777
+        networks:
+          egress:
+            internal: false
+      expose:
+      - kind: tcp-ssl
+        hostPrefix: viewer
+        containerName: challenge
+        containerPort: 1337
+        title: Viewer

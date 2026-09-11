@@ -13,9 +13,42 @@ challenges:
       files:
         - release/
       strip_components: 1
-    endpoints:
-      - type: nc
-        endpoint: ctf.cybreak.org
-        port: 2003
     flags:
-      rctf: 'CYB26{ya_saya_kehabisan_ide_jadi_buat_soal_yang_gini_ajalah_capek_saya_huhuhuhu_(┬┬﹏┬┬)}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{ya_saya_kehabisan_ide_jadi_buat_soal_yang_gini_ajalah_capek_saya_huhuhuhu_(TT_TT)}'
+            mode: tail
+    instancerConfig:
+      instancer: docker-useless
+      challengeIntegrationId: useless
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          challenge:
+            image: cybreak/useless:instancer-v1
+            environment:
+              RCTF_FLAG: ${RCTF_FLAG}
+            networks:
+            - egress
+            read_only: true
+            mem_limit: 128m
+            cpus: 0.5
+            pids_limit: 64
+            cap_add:
+            - CHOWN
+            - SETUID
+            - SETGID
+            tmpfs:
+              /run/ctf: size=1m,mode=0755
+              /tmp: size=16m,mode=1777
+        networks:
+          egress:
+            internal: false
+      expose:
+      - kind: tcp-ssl
+        hostPrefix: useless
+        containerName: challenge
+        containerPort: 1337
+        title: useless

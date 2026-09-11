@@ -4,7 +4,7 @@ set -eu
 umask 077
 mkdir -p /run/ctf
 printf '%s\n' "$RCTF_FLAG" > /run/ctf/flag.txt
-chmod 0444 /run/ctf/flag.txt
-chown mirai:mirai /run/ctf/flag.txt
+chmod 0400 /run/ctf/flag.txt
+chown ctf:ctf /run/ctf/flag.txt
 unset RCTF_FLAG RCTF_FLAGS
-exec setpriv --reuid=mirai --regid=mirai --init-groups --no-new-privs "$@"
+exec setpriv --reuid=ctf --regid=ctf --init-groups --no-new-privs "$@"

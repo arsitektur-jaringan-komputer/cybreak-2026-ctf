@@ -11,9 +11,24 @@ challenges:
     attachments:
       pre_compressed:
         - release/impossible-web.zip
-      endpoints:
-        - type: http
-          endpoint: ctf.cybreak.org
-          port: 1696
-      flags:
-        rctf: "CYB26{kata_mirai_'yahaha ai mu walaupun curang pake agentic gaada yang bisa solve soalku'_awokwaok}"
+    flags:
+      rctf: "CYB26{kata_mirai_'yahaha ai mu walaupun curang pake agentic gaada yang bisa solve soalku'_awokwaok}"
+    instancerConfig:
+      instancer: docker
+      challengeIntegrationId: impossible-web
+      timeoutMilliseconds: 1800000
+      extendable: true
+      config:
+        services:
+          app:
+            image: cybreak/impossible-web:latest
+            read_only: false
+            mem_limit: 768m
+            cpus: 0.5
+            pids_limit: 128
+      expose:
+        - kind: https
+          hostPrefix: impossible-web
+          containerName: app
+          containerPort: 5000
+          title: Impossible Web

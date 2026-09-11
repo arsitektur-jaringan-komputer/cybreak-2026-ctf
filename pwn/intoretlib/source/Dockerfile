@@ -1,23 +1,11 @@
 FROM debian:trixie
-
-RUN apt-get update && apt-get install -y \
-    socat \
-    && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update && apt-get install -y socat util-linux && rm -rf /var/lib/apt/lists/*
 RUN useradd -m ctf
 WORKDIR /home/ctf
-
 COPY chall /home/ctf/chall
-COPY flag.txt /home/ctf/flag.txt
-
-RUN chmod +x /home/ctf/chall && \
-    chown -R root:root /home/ctf && \
-    chmod 755 /home/ctf && \          
-    chmod 755 /home/ctf/chall && \
-    chown ctf:ctf /home/ctf/flag.txt && \
-    chmod 400 /home/ctf/flag.txt
-
-USER ctf
+COPY entrypoint.sh /entrypoint.sh
+RUN mkdir -p /run/ctf && ln -s /run/ctf/flag.txt /home/ctf/flag.txt && \
+    chown -R root:root /home/ctf && chmod 755 /home/ctf /home/ctf/chall /entrypoint.sh
 EXPOSE 8583
-
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["socat", "TCP-LISTEN:8583,reuseaddr,fork", "EXEC:/home/ctf/chall,stderr"]
