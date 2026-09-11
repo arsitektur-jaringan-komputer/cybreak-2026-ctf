@@ -3,27 +3,19 @@ services:
   challenge:
     build: .
     ports:
-    - 2003:1337
+      - 2003:1337
     restart: unless-stopped
-<<<<<<< HEAD
-    image: cybreak/useless:instancer-v1
-    environment:
-      RCTF_FLAG: CYB26{local_testing_flag}
-    cap_add:
-    - CHOWN
-=======
     image: cybreak/useless:latest
     environment:
       RCTF_FLAG: CYB26{local_testing_flag}
     cap_add:
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
-    - SETUID
-    - SETGID
+      - SETUID
+      - SETGID
     cap_drop:
-    - ALL
+      - ALL
     read_only: true
     tmpfs:
       /run/ctf: size=1m,mode=0755
       /tmp: size=16m,mode=1777
     security_opt:
-    - no-new-privileges:true
+      - no-new-privileges:true

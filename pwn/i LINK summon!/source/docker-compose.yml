@@ -3,26 +3,22 @@ services:
     build: .
     container_name: link
     ports:
-    - 2001:4282
+      - 2001:4282
     restart: unless-stopped
     read_only: true
     tmpfs:
       /run/ctf: size=1m,mode=0755
       /tmp: size=16m,mode=1777
     cap_drop:
-    - ALL
+      - ALL
     security_opt:
-    - no-new-privileges:true
+      - no-new-privileges:true
     mem_limit: 128m
     pids_limit: 50
-<<<<<<< HEAD
-    image: cybreak/link:instancer-v1
-=======
     image: cybreak/link:latest
->>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
     environment:
       RCTF_FLAG: CYB26{local_testing_flag}
     cap_add:
-    - CHOWN
-    - SETUID
-    - SETGID
+      - CHOWN
+      - SETUID
+      - SETGID
