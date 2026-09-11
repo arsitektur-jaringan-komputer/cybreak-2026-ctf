@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: challenge-deployment
+  cancel-in-progress: false
+
 jobs:
   detect:
     runs-on: ubuntu-latest
@@ -28,12 +32,39 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         challenge: ${{ fromJson(needs.detect.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v6
+      - name: Configure worker access
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          python3 -m pip install PyYAML
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          ssh = Path.home() / '.ssh'
+          ssh.mkdir(mode=0o700, exist_ok=True)
+          key = ssh / 'id_ed25519'
+          key.write_text(os.environ['SSH_KEY'] + '\n')
+          key.chmod(0o600)
+          (ssh / 'known_hosts').write_text(os.environ['KNOWN_HOSTS'] + '\n')
+          (ssh / 'config').write_text('Host *\n  BatchMode yes\n  StrictHostKeyChecking yes\n  IdentitiesOnly yes\n')
+          PY
+      - name: Build instancer image on worker
+        env:
+          DOCKER_HOST: ${{ vars.CTF_DOCKER_HOST }}
+          CHALLENGE_PATH: ${{ matrix.challenge }}
+        run: python3 .github/scripts/images.py "$CHALLENGE_PATH"
       - uses: project-sekai-ctf/konata-deploy-action/sync@main
         with:
           challenge-path: ${{ matrix.challenge }}
         env:
           RCTF_TOKEN: ${{ secrets.RCTF_TOKEN }}
+      - name: Remove obsolete unused image tags
+        env:
+          DOCKER_HOST: ${{ vars.CTF_DOCKER_HOST }}
+        run: python3 .github/scripts/images.py --prune

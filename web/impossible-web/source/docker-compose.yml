@@ -1,7 +1,7 @@
-name: simple-app
+name: impossible-web
 services:
   app:
-    image: cybreak/simple-app:latest
+    image: cybreak/impossible-web:latest
     build: .
     ports:
       - "1696:5000"
