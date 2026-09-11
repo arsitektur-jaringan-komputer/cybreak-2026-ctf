@@ -1,6 +1,7 @@
 name: simple-app
 services:
   app:
+    image: cybreak/simple-app:latest
     build: .
     ports:
       - "1696:5000"
