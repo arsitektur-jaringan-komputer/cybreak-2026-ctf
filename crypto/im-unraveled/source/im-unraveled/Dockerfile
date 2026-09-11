@@ -7,14 +7,11 @@ WORKDIR /home/ctf
 
 COPY chall.py .
 COPY utils/ utils/
-COPY flag.txt .
 
 RUN mkdir -p /home/ctf/logs && \
     chown -R root:root /home/ctf && \
     chmod -R 755 /home/ctf && \
-    chown ctf:ctf /home/ctf/logs && \
-    chown ctf:ctf /home/ctf/flag.txt && \
-    chmod 444 /home/ctf/flag.txt
+    chown ctf:ctf /home/ctf/logs
 
 USER ctf
 EXPOSE 13337

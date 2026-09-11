@@ -17,14 +17,13 @@ WORKDIR /home/mirai
 COPY entrypoint.sh /entrypoint.sh
 COPY chall /home/mirai/
 
-# Copy the flag
-COPY flag.txt /home/mirai/flag.txt
+# The instancer supplies the flag at startup.
+RUN mkdir -p /run/ctf && ln -s /run/ctf/flag.txt /home/mirai/flag.txt
 
 # Set permissions to make necessary files read-only
 RUN chmod +x /entrypoint.sh
 RUN chmod 111 /home/mirai/chall
-RUN chmod 444 /home/mirai/flag.txt
-RUN chmod -R 555 /home/mirai
+RUN chmod 555 /home/mirai
 
 # Expose port
 EXPOSE 1337

@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
 from base64 import b32encode
-from os import urandom
+from os import environ, urandom
 
 from Crypto.Cipher import AES
 
 from utils import listener, noise
 
-try:
-    FLAG = open("flag.txt").read().strip()
-except FileNotFoundError:
-    FLAG = "CYB26{local_testing_flag}"
+FLAG = environ.pop("RCTF_FLAG", "")
+if not FLAG:
+    raise RuntimeError("RCTF_FLAG must be supplied by the instancer")
 
 BLOCK = 16
 MIN_PAD = 2

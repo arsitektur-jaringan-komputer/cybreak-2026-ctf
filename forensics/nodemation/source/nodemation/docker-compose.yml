@@ -2,5 +2,8 @@ services:
   challenge:
     build: .
     ports:
-      - "4002:31338"
+    - 4002:31338
     restart: unless-stopped
+    image: cybreak/nodemation:latest
+    environment:
+      RCTF_FLAG: CYB26{local_testing_flag}

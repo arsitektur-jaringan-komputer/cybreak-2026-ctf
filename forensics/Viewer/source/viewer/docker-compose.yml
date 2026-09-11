@@ -3,9 +3,11 @@ services:
     build: .
     restart: unless-stopped
     environment:
-      - TERM=xterm
+    - TERM=xterm
+    - RCTF_FLAG=CYB26{local_testing_flag}
     ulimits:
       nproc: 65535
       core: 0
     ports:
-      - "4001:1337"
+    - 4001:1337
+    image: cybreak/viewer:latest

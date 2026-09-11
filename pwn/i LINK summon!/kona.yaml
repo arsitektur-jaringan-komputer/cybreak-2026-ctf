@@ -12,9 +12,42 @@ challenges:
       files:
         - release/LINK_LINK
       strip_components: 1
-    endpoints:
-      - type: nc
-        endpoint: ctf.cybreak.org
-        port: 2001
     flags:
-      rctf: 'CYB26{link3d_7his_link_that_LINKING}'
+      rctf:
+        - provider: flags/dynamic
+          config:
+            base: 'CYB26{link3d_7his_link_that_LINKING}'
+            mode: tail
+    instancerConfig:
+      instancer: docker-link
+      challengeIntegrationId: link
+      timeoutMilliseconds: 600000
+      extendable: true
+      config:
+        services:
+          challenge:
+            image: cybreak/link:latest
+            environment:
+              RCTF_FLAG: ${RCTF_FLAG}
+            networks:
+            - egress
+            read_only: true
+            mem_limit: 128m
+            cpus: 0.5
+            pids_limit: 50
+            cap_add:
+            - CHOWN
+            - SETUID
+            - SETGID
+            tmpfs:
+              /run/ctf: size=1m,mode=0755
+              /tmp: size=16m,mode=1777
+        networks:
+          egress:
+            internal: false
+      expose:
+      - kind: tcp-ssl
+        hostPrefix: link
+        containerName: challenge
+        containerPort: 4282
+        title: i LINK summon!
