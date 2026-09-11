@@ -5,11 +5,18 @@ services:
     ports:
     - 2003:1337
     restart: unless-stopped
+<<<<<<< HEAD
     image: cybreak/useless:instancer-v1
     environment:
       RCTF_FLAG: CYB26{local_testing_flag}
     cap_add:
     - CHOWN
+=======
+    image: cybreak/useless:latest
+    environment:
+      RCTF_FLAG: CYB26{local_testing_flag}
+    cap_add:
+>>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
     - SETUID
     - SETGID
     cap_drop:

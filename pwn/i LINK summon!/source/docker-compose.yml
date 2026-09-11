@@ -15,7 +15,11 @@ services:
     - no-new-privileges:true
     mem_limit: 128m
     pids_limit: 50
+<<<<<<< HEAD
     image: cybreak/link:instancer-v1
+=======
+    image: cybreak/link:latest
+>>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
     environment:
       RCTF_FLAG: CYB26{local_testing_flag}
     cap_add:

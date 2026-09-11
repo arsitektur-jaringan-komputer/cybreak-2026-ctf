@@ -4,6 +4,10 @@ services:
     ports:
     - 4002:31338
     restart: unless-stopped
+<<<<<<< HEAD
     image: cybreak/nodemation:instancer-v1
+=======
+    image: cybreak/nodemation:latest
+>>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
     environment:
       RCTF_FLAG: CYB26{local_testing_flag}

@@ -17,7 +17,11 @@ WORKDIR /home/mirai
 COPY entrypoint.sh /entrypoint.sh
 COPY chall /home/mirai/
 
+<<<<<<< HEAD
 # Copy the flag
+=======
+# The instancer supplies the flag at startup.
+>>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
 RUN mkdir -p /run/ctf && ln -s /run/ctf/flag.txt /home/mirai/flag.txt
 
 # Set permissions to make necessary files read-only

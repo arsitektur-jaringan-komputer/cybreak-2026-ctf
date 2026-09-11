@@ -19,6 +19,10 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+<<<<<<< HEAD
     image: cybreak/im-unraveled:instancer-v1
+=======
+    image: cybreak/im-unraveled:latest
+>>>>>>> db7fd10ed33b83e07d6cf930eaf9616df1fecafb
     environment:
       RCTF_FLAG: CYB26{local_testing_flag}
