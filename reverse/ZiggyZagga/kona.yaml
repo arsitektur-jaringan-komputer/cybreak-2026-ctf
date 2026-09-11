@@ -11,7 +11,7 @@ challenges:
         - release/ZiggyZagga.zip
     endpoints:
       - type: http
-        endpoint: ctf.cybreak.org
+        endpoint: 167.172.72.157
         port: 5001
     flags:
       rctf: 'CYB26{W34th3R_R3P0RTTT_x_DPT_DPT}'
