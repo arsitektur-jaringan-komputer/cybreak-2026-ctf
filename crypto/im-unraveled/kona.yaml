@@ -9,8 +9,9 @@ challenges:
     tags:
       - Medium
     attachments:
-      pre_compressed:
-        - release/im-unraveled.zip
+      files:
+        - release/chall.py
+      strip_components: 1
     endpoints:
       - type: nc
         endpoint: ctf.cybreak.org

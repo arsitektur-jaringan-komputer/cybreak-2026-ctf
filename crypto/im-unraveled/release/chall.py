@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 
-import hashlib
-import hmac
 from base64 import b32encode
 from os import urandom
 
 from Crypto.Cipher import AES
 
-from utils import listener
+from utils import listener, noise
 
 FLAG = "CYB26{REDACTED}"
 
 BLOCK = 16
-P_LIE = 0.25             
-MIN_PAD = 2              
-MAX_QUERIES = 25_000    
-MAX_CHECK_ATTEMPTS = 3  
+MIN_PAD = 2
+MAX_QUERIES = 50_000
+FLAG_BUDGET = 10_000
+MAX_CHECK_ATTEMPTS = 3   
 
 
 def strip_pad(pt):
@@ -27,23 +25,28 @@ def strip_pad(pt):
 
 class Challenge:
     def __init__(self):
+
         self.message = b32encode(urandom(10)).decode("ascii")
         self.key = urandom(16)
-        self.noise_key = urandom(16)         
+        self.session_key = urandom(16)
         self.query_count = 0
         self.encrypt_count = 0
         self.check_attempts = 0
 
-        self.before_input = "Recover my token and I'll send you the flag.\n"
+        self.before_input = (
+            "Recover my token and I'll send you the flag.\n"
+            "The token is 16 base32 characters (A-Z, 2-7).\n"
+            'options: {"option": "encrypt"} -> {"ct": "<hex IV||C0>"}, once per connection\n'
+            '         {"option": "unpad", "ct": "<hex>"} -> {"result": <bool>}\n'
+            '         {"option": "check", "message": "<token>"} -> {"flag": "..."}\n'
+            f"budget: {FLAG_BUDGET} unpad queries for the flag, {MAX_QUERIES} hard cap, "
+            f"{MAX_CHECK_ATTEMPTS} check attempts\n"
+        )
 
     def update_query_count(self, n=1):
         self.query_count += n
         if self.query_count >= MAX_QUERIES:
             self.exit = True
-
-    def _lie(self, blob):
-        tag = hmac.new(self.noise_key, blob, hashlib.sha256).digest()
-        return int.from_bytes(tag[:8], "big") / 2**64 < P_LIE
 
     def get_ct(self):
         if self.encrypt_count >= 1:
@@ -70,17 +73,24 @@ class Challenge:
             good = False
 
         self.update_query_count()
-        return {"result": good ^ self._lie(blob)}
+        return {"result": noise.distort(self.session_key, blob, good)}
 
     def check_message(self, message):
         if message == self.message:
-            return {"flag": FLAG}
+            if self.query_count <= FLAG_BUDGET:
+                return {"flag": FLAG}
+            over = self.query_count / FLAG_BUDGET
+            self.exit = True
+            return {"error": f"token correct, but you spent {self.query_count} queries "
+                             f"({over:.1f}x the {FLAG_BUDGET} budget). The flag needs "
+                             f"{FLAG_BUDGET} or fewer. Reconnect for a fresh token."}
         self.check_attempts += 1
         left = MAX_CHECK_ATTEMPTS - self.check_attempts
         if left <= 0:
             self.exit = True
             return {"error": "incorrect message, no attempts left"}
         return {"error": f"incorrect message, {left} attempt(s) left"}
+
 
     def challenge(self, msg):
         if "option" not in msg or msg["option"] not in ("encrypt", "unpad", "check"):
