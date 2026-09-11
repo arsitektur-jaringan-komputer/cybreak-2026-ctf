@@ -1,0 +1,27 @@
+challenges:
+  - category: crypto
+    name: I CAST ARCANE LOCK... TWICE!
+    author: TSakuyaiba
+    description: |
+      <img src="https://media1.tenor.com/m/EuAwC485wRwAAAAC/d%26d-dnd.gif">
+
+      **Double Arcane Lock** is a cooperative abjuration spell used to protect
+      a secret scroll. Rudy locks the scroll first, then Seria locks the result.
+      Each wizard chooses a secret numerical incantation from a small spellbook.
+      The starting runes are different for every casting, but the two
+      incantations stay the same.
+
+      Rudy raises his staff: "I CAST ARCANE LOCK!" -> NAT 15!
+
+      Then Seria follows: "I CAST ARCANE LOCK!" -> NAT 20!
+
+      Surely it is twice as secure... right?
+    tags:
+      - Easy
+    attachments:
+      files:
+        - release/chall.py
+        - release/output.txt
+      strip_components: 1
+    flags:
+      rctf: 'CYB26{rudy_said_:ohh_come_on_event_with_nat_20_still_not_working!!!_i_must_go_back_to_the_academy}'
