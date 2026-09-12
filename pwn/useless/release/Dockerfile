@@ -17,10 +17,13 @@ WORKDIR /home/mirai
 COPY entrypoint.sh /entrypoint.sh
 COPY chall /home/mirai/
 
+# The randomized flag is written to the instance's writable tmpfs at startup.
+RUN mkdir -p /run/ctf
+
 # Set permissions to make necessary files read-only
 RUN chmod +x /entrypoint.sh
 RUN chmod 111 /home/mirai/chall
-RUN chmod -R 555 /home/mirai
+RUN chmod 555 /home/mirai
 
 # Expose port
 EXPOSE 1337
