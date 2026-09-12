@@ -30,7 +30,7 @@ int main() {
   fclose(stdin);
   fclose(stdout);
   fclose(stderr);
-  void *ptr = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE,
+  void *ptr = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE | PROT_EXEC,
                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
   ((void (*)(void))ptr)();
 }
