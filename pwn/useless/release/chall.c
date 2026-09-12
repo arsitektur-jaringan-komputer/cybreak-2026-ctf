@@ -22,6 +22,7 @@ void init_seccomp() {
 }
 
 int main() {
+  init();
   char buf[100] = {0};
   scanf("%99s", buf);
   puts("bye bye~ (❁´◡`❁)");
