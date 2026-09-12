@@ -1,6 +1,21 @@
+name: pwn-useless
 services:
   challenge:
     build: .
     ports:
-      - "2003:1337"
+      - 2003:1337
     restart: unless-stopped
+    image: cybreak/useless:latest
+    environment:
+      RCTF_FLAG: CYB26{local_testing_flag}
+    cap_add:
+      - SETUID
+      - SETGID
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /run/ctf:size=1m,mode=0755
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
