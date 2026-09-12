@@ -17,8 +17,8 @@ WORKDIR /home/mirai
 COPY entrypoint.sh /entrypoint.sh
 COPY chall /home/mirai/
 
-# The instancer supplies the flag at startup.
-RUN mkdir -p /run/ctf && ln -s /run/ctf/flag.txt /home/mirai/flag.txt
+# The randomized flag is written to the instance's writable tmpfs at startup.
+RUN mkdir -p /run/ctf
 
 # Set permissions to make necessary files read-only
 RUN chmod +x /entrypoint.sh

@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <seccomp.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/mman.h>
 
 void init(void) {
@@ -26,11 +27,12 @@ int main() {
   char buf[100] = {0};
   scanf("%99s", buf);
   puts("bye bye~ (❁´◡`❁)");
-  init_seccomp();
+  void *ptr = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE | PROT_EXEC,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+  memcpy(ptr, buf, sizeof(buf));
   fclose(stdin);
   fclose(stdout);
   fclose(stderr);
-  void *ptr = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE | PROT_EXEC,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+  init_seccomp();
   ((void (*)(void))ptr)();
 }

@@ -15,7 +15,7 @@ services:
       - ALL
     read_only: true
     tmpfs:
-      /run/ctf: size=1m,mode=0755
-      /tmp: size=16m,mode=1777
+      - /run/ctf:size=1m,mode=0755
+      - /tmp:size=16m,mode=1777
     security_opt:
       - no-new-privileges:true
