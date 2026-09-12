@@ -19,7 +19,7 @@ challenges:
     instancerConfig:
       instancer: docker-im-unraveled
       challengeIntegrationId: im-unraveled
-      timeoutMilliseconds: 600000
+      timeoutMilliseconds: 1800000
       extendable: true
       config:
         services:
